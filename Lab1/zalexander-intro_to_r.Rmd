@@ -62,7 +62,8 @@ boys to newborn girls, so he gathered the baptism records for children born in
 London for every year from 1629 to 1710.  We can take a look at the data by 
 typing its name into the console.
 
-```{r view-data, eval=TRUE}
+```{r view-data, eval=TRUE, results='hide'}
+## just hiding the results of the following outputs to condense the PDF a bit.
 arbuthnot
 ```
 
@@ -82,7 +83,7 @@ Arbuthnot's data in a kind of spreadsheet or table called a *data frame*.
 
 You can see the dimensions of this data frame by typing:
 
-```{r dim-data, eval=TRUE}
+```{r dim-data, eval=TRUE, results='hide'}
 dim(arbuthnot)
 ```
 
@@ -91,7 +92,7 @@ columns (we'll get to what the `[1]` means in a bit), just as it says next to
 the object in your workspace. You can see the names of these columns (or 
 variables) by typing:
 
-```{r names-data, eval=TRUE}
+```{r names-data, eval=TRUE, results='hide'}
 names(arbuthnot)
 ```
 
@@ -112,7 +113,7 @@ by clicking on the *x* in the upper lefthand corner.
 Let's start to examine the data a little more closely. We can access the data in
 a single column of a data frame separately using a command like
 
-```{r view-boys, eval=TRUE}
+```{r view-boys, eval=TRUE, results='hide'}
 arbuthnot$boys
 ```
 
@@ -161,7 +162,7 @@ read what a function does and learn the arguments that are available to you,
 just type in a question mark followed by the name of the function that you're 
 interested in. Try the following.
 
-```{r plot-help, eval=TRUE, tidy = FALSE}
+```{r plot-help, eval=TRUE, tidy = FALSE, results='hide'}
 ?plot
 ```
 
@@ -170,7 +171,7 @@ toggle between plots and help files using the tabs at the top of that panel.
 
 2.  Is there an apparent trend in the number of girls baptized over the years? How would you describe it?
     
-    **Zach's Response: Yes, overall, there is an increase in the number of girls baptized over the years. More specifically, after an initial increase from 1629 to around 1640, there appears to be a decrease in the number of girls baptized around 1640. This decrease continues until about 1660. From 1660 to 1710 there is a large increase in the number of girls baptized.**
+    **Yes, overall, there is an apparent trend of an increase in the number of girls baptized over the years. More specifically, after an initial increase from 1629 to around 1640, there appears to be a decrease in the number of girls baptized around 1640. This decrease continues until about 1660. From 1660 to 1710 there is a large increase in the number of girls baptized.**
 
 Now, suppose we want to plot the total number of baptisms.  To compute this, we 
 could use the fact that R is really just a big calculator. We can type in 
@@ -237,13 +238,11 @@ commands, your so-called command history. You can also access it by clicking on
 the history tab in the upper right panel.  This will save you a lot of typing in
 the future.
 
-    **Zach's Response: There appears to be a slight decrease in the proportion of boys being baptized over        time (see plot below).**
-
+    **There appears to be a slight decrease in the proportion of boys being baptized over time (see plot below).**
 
 ```{r}
 plot(arbuthnot$year, arbuthnot$boys / (arbuthnot$boys + arbuthnot$girls), type = "l")
 ```
-
 
 
 Finally, in addition to simple mathematical operators like subtraction and 
@@ -290,22 +289,73 @@ The data are stored in a data frame called `present`.
 -   What years are included in this data set? What are the dimensions of the 
     data frame and what are the variable or column names?
     
+**The years included in the dataset are from 1940 to 2002.**
+    
+```{r}
+range(present$year)
+```
+    
+**The dimensions of the data frame are 63 rows and 3 columns.**
+    
 ```{r}
 dim(present)
 ```
     
+**The variable names are "year", "boys", and "girls".**
+    
+```{r}
+names(present)
+```
 
 -   How do these counts compare to Arbuthnot's? Are they on a similar scale?
+
+**The counts in the "present" data set are much larger than those in Arbuthnot's data set. They are not on a similar scale.**
 
 -   Make a plot that displays the boy-to-girl ratio for every year in the data 
     set. What do you see? Does Arbuthnot's observation about boys being born in
     greater proportion than girls hold up in the U.S.? Include the plot in your 
     response.
+    
+**When looking at the plot (see below) and ratio of boys to girls born in the U.S. every year since 1940, Arbuthnot's observation that boys are being born in greater proportion than girls does hold up in the U.S. for the time period between 1940 and 2002. I created an extra column/variable in the present dataset to show and calculate the boy-to-girl ratio by year:**
+
+```{r}
+# created a column in the present dataset to calculate the 
+# boy-to-girl ratio for every year in the dataset.
+present$boyprop <- (present$boys / present$girls)
+present
+
+# used match to isolate the index of the highest proportion of 
+# boys to girls, then found the year associated with this highest 
+# proportion. 1946 had the highest proportion of boys to girls 
+# born in the U.S. in this data set.
+present$year[match(max(present$boyprop), present$boyprop)]
+present$year[match(min(present$boyprop), present$boyprop)]
+```
+
+**We can see that within this data set, even the most equal ratio of boys to girls born in the U.S. was in the year of 2001 - where there were still roughly 104 boys born for every 100 girls born. Although Arbuthnot's observation is supported in this dataset, we there is a slight decline in the ratio of boys born to the girls born in the U.S. during the time period of the "present" data set, from 1940 to 2002.**
+    
+```{r}
+plot(present$year, (present$boys / present$girls), type = "l")
+```
+    
 
 -   In what year did we see the most total number of births in the U.S.? You can
     refer to the help files or the R reference card 
     [http://cran.r-project.org/doc/contrib/Short-refcard.pdf](http://cran.r-project.org/doc/contrib/Short-refcard.pdf)
     to find helpful commands.
+    
+**1961 was the year that we saw the most total number of births in the U.S. between 1940 and 2002.**
+    
+```{r}
+# create column for total births by year
+present$total_births <- present$boys + present$girls
+present
+
+# used match and max again to isolate the year that had the most total
+# number of briths in the U.S.
+present$year[match(max(present$total_births), present$total_births)]
+```
+
 
 These data come from a report by the Centers for Disease Control 
 [http://www.cdc.gov/nchs/data/nvsr/nvsr53/nvsr53_20.pdf](http://www.cdc.gov/nchs/data/nvsr/nvsr53/nvsr53_20.pdf). 
