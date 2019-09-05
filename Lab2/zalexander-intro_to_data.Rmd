@@ -547,6 +547,8 @@ typeof(wdiff)
     spread, including any plots you use. What does this tell us about how people 
     feel about their current weight?
     
+    **After looking at some measures of center, as well as plotting the wdiff values in a frequency table, I've found that the median desired weight of people in the sample is 10 pounds less than their current weight. Additionally, the average desired weight is close to 15 pounds less than their current weight. Because there is roughly equal trailing off in both directions when plotting this as a histogram (Histogram #3, below), we can say the shape is symmetric. Additionally, after adjusting the boxplot below to compensate for outliers (Boxplot #1, below), you can see that half of the data (people's responses) fall within an interquartile range of a desire to lose anywhere between zero and 21 pounds. The standard deviation also reflects this, at 24.04. Finally, I did a few calculations to see what percent of the wdiff values were considered outliers given our mean desired weight to be roughly 15 pounds less than people's current weight - I found that roughly 6% of responses for desired weight were outliers. This isn't unusually high, but given the dataset did have 20,000 observations, this did create some challenges when plotting values. I tried to compensate for this by taking the log as well as putting limits on both axes, when needed.**
+    
 ```{r}
 summary(wdiff)
 ```
@@ -559,14 +561,38 @@ describe(wdiff)
 
     
 ```{r}
-hist(log(wdiff), breaks = 20)
+hist(wdiff, breaks = 20, main = 'Histogram #1')
+hist(log(wdiff), breaks = 100, main = 'Histogram #2 (log transformed)')
+hist(wdiff, breaks = 300, xlim = c(-100, 100), main = 'Histogram #3 (x-limited)')
 ```
-    
-    
+
 ```{r}
-boxplot(log(wdiff), na.rm = TRUE)
+# to view the IQR better
+boxplot(wdiff, ylim = c(-50, 30), main = 'Boxplot #1 (y-limited)')
+
+# to show outliers
+boxplot(wdiff, main = 'Boxplot #2')
 ```
-    
+
+```{r}
+# calculating percent of outliers relative to full dataset
+
+# calculating the "minimum" of the boxplot (Q1 - 1.5*IQR)
+minimum <- (-21) - (1.5 * 21)
+minimum
+
+# calculating the "maximum" of the boxplot (Q3 + 1.5*IQR)
+maximum <- (0) + (1.5 * 21)
+maximum
+```
+
+```{r}
+wdiff_outliers <- length(wdiff[wdiff > 31.5 | wdiff < -52.5])
+wdiff_outliers / length(wdiff)
+```
+
+
+
 
 -   Using numerical summaries and a side-by-side box plot, determine if men tend
     to view their weight differently than women.
