@@ -409,6 +409,7 @@ when forming a subset.
 ```{r}
 under23_and_smoke <- subset(cdc, age < 23 & smoke100 == 1)
 head(under23_and_smoke)
+dim(under23_and_smoke)
 ```
     
 
@@ -477,6 +478,13 @@ very simple expressions.
     
     **The box plot shows that median BMI trends lower for those that responded as having better health. There also appears to be smaller interquartile ranges for those in the sample that responded with better health, than those that responded as having poorer health.**
     
+    **I picked 'exerany' (reporting to have exercised within the past month), to see if people that reported exercising in the past month tend to have lower BMIs. I chose this variable because exercising regularly does seem to lead to better health outcomes for individuals, so I was curious as to whether or not this impacted BMI values. After plotting this in a boxplot, it does seem to suggest that those reporting to have exercised in the past month (the label of 1 on the x-axis) do tend to have lower BMIs than those that reported to have not exercised in the past month (the label of 0 on the x-axis)**
+    
+```{r}
+boxplot(bmi ~ cdc$exerany)
+```
+    
+    
 
 Finally, let's make some histograms. We can look at the histogram for the age of
 our respondents with the command
@@ -521,7 +529,8 @@ plot(cdc$weight, cdc$wtdesire, main = 'Weight ~ Desired Weight', frame = FALSE)
 abline(lm(cdc$weight ~ cdc$wtdesire, data = cdc), col = 'red')
 ```
     
-    **After plotting current weight versus desired weight, we see a positive correlation between a repondents current weight and their desired weight. In other words, as respondents current weight increases, their desired weight also increases. Also, with the addition of a regression line, we can see that many plots fall below the regression line relative to the number of plots that fall above the regression line. This insinuates that respondents typically report desired weights that are less than their current weight. Overall, individuals in this sample seem to want to weigh less than their current weight!**
+
+**After plotting current weight versus desired weight, we see a positive correlation between a repondents current weight and their desired weight. In other words, as respondents current weight increases, their desired weight also increases. Also, with the addition of a regression line, we can see that many plots fall below the regression line relative to the number of plots that fall above the regression line. This insinuates that respondents typically report desired weights that are less than their current weight. Overall, individuals in this sample seem to want to weigh less than their current weight!**
 
 -   Let's consider a new variable: the difference between desired weight 
     (`wtdesire`) and current weight (`weight`). Create this new variable by 
@@ -541,13 +550,14 @@ wdiff <- cdc$wtdesire - cdc$weight
 typeof(wdiff)
 ```
     
-    **wdiff is an object that holds integers that are the difference between each respondent's current weight and their desired weight. If an observation wdiff is 0, then a person's current weight is the same as their desired weight. They do not have a desire to be a different weight than their current weight. If wdiff is positive then a person has a desired weight that is heavier than their current weight (they would like to gain weight). If wdiff is negative, then a person has a desired weight that is lighter than their current weight (they would like to lose weight).**
+
+**wdiff is an object that holds integers that are the difference between each respondent's current weight and their desired weight. If an observation wdiff is 0, then a person's current weight is the same as their desired weight. They do not have a desire to be a different weight than their current weight. If wdiff is positive then a person has a desired weight that is heavier than their current weight (they would like to gain weight). If wdiff is negative, then a person has a desired weight that is lighter than their current weight (they would like to lose weight).**
 
 -   Describe the distribution of `wdiff` in terms of its center, shape, and 
     spread, including any plots you use. What does this tell us about how people 
     feel about their current weight?
     
-    **After looking at some measures of center, as well as plotting the wdiff values in a frequency table, I've found that the median desired weight of people in the sample is 10 pounds less than their current weight. Additionally, the average desired weight is close to 15 pounds less than their current weight. Because there is roughly equal trailing off in both directions when plotting this as a histogram (Histogram #3, below), we can say the shape is symmetric. Additionally, after adjusting the boxplot below to compensate for outliers (Boxplot #1, below), you can see that half of the data (people's responses) fall within an interquartile range of a desire to lose anywhere between zero and 21 pounds. The standard deviation also reflects this, at 24.04. Finally, I did a few calculations to see what percent of the wdiff values were considered outliers given our mean desired weight to be roughly 15 pounds less than people's current weight - I found that roughly 6% of responses for desired weight were outliers. This isn't unusually high, but given the dataset did have 20,000 observations, this did create some challenges when plotting values. I tried to compensate for this by taking the log as well as putting limits on both axes, when needed.**
+    **After looking at some measures of center, as well as plotting the wdiff values in a frequency table, I've found that the median desired weight of people in the sample is 10 pounds less than their current weight. Additionally, the average desired weight is close to 15 pounds less than their current weight. Because there is roughly equal trailing off in both directions when plotting this as a histogram (Histogram #3, below), we can say the shape is symmetric. Additionally, after adjusting the boxplot below to compensate for outliers (Boxplot #1, below), you can see that half of the data (people's responses) fall within an interquartile range of a desire to lose anywhere between zero and 21 pounds from their current weight. The standard deviation also reflects this, at 24.04. Finally, I did a few calculations to see what percent of the wdiff values were considered outliers given our mean desired weight to be roughly 15 pounds less than people's current weight - I found that roughly 6% of responses for desired weight were outliers. Given the dataset has 20,000 observations, this did create some challenges when plotting values. I tried to compensate for this by taking the log of wdiff values as well as putting limits on both axes, when needed.**
     
 ```{r}
 summary(wdiff)
@@ -561,7 +571,7 @@ describe(wdiff)
 
     
 ```{r}
-hist(wdiff, breaks = 20, main = 'Histogram #1')
+hist(wdiff, breaks = 50, main = 'Histogram #1')
 hist(log(wdiff), breaks = 100, main = 'Histogram #2 (log transformed)')
 hist(wdiff, breaks = 300, xlim = c(-100, 100), main = 'Histogram #3 (x-limited)')
 ```
@@ -596,8 +606,56 @@ wdiff_outliers / length(wdiff)
 
 -   Using numerical summaries and a side-by-side box plot, determine if men tend
     to view their weight differently than women.
+    
+    **From the numerical summaries below, splitting wdiff by gender, you can see that the median desired weight for males is 5 pounds less than their current weight. For females, the median desired weight is ten pounds less than their current weight. This is also supported by the means, as well as visually in the side-by-side box plot below ('Boxplot #1 (gender difference)') that males tend to have a desire to lose less weight than females in this sample.**
+    
+```{r}
+tapply(wdiff, cdc$gender, summary)
+```
+    
+    
+```{r}
+boxplot(wdiff ~ cdc$gender, ylim = c(-80, 50), main = 'Boxplot #1 (gender difference)')
+```
+    
 
 -   Now it's time to get creative. Find the mean and standard deviation of 
     `weight` and determine what proportion of the weights are within one 
     standard deviation of the mean.
+    
+**First, finding the mean and standard deviation. From the describe function below, we can see that the mean weight is 169.68 and the standard deviation is 40.08.**
+```{r}
+describe(cdc$weight)
+```
 
+**Then, calculating the low bound of one standard deviation from the mean, as well as calculating the high bound of one standard deviation from the mean.** 
+
+```{r}
+mean_weight <- 169.68
+weight_low_sd1 <- 169.68 - 40.08
+weight_high_sd1 <- 169.68 + 40.08
+
+weight_low_sd1
+```
+**The low bound of one standard deviation from the mean weight is 129.6.**
+  **The high bound of one standard deviation from the mean weight is 209.76.**
+
+```{r}
+weight_high_sd1
+```
+
+**Now, we need to subset the data to only include weights that fall within this range of values (209.76 to 129.60). I subsetted the data below and stored it in an object called 'weights_one_sd':**
+
+```{r}
+weights_one_sd <- subset(cdc, weight >= 129.60 & weight < 209.76)
+weights_within_one_sd <- dim(weights_one_sd)[1]
+```
+
+**It looks like, after subsetting the data to only include weights within the bounds of 129.6 and 209.76, that there are 14,152 values that match this criteria. Finally, we can take the proportion, dividing this count by the total responses in our sample:**
+
+```{r}
+prop_weight_one_sd <- 14152 / 20000
+prop_weight_one_sd
+```
+
+**We can conclude that 70.76% of the weights in the sample fall within one standard deviation from the mean.**
