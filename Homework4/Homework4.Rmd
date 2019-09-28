@@ -301,7 +301,7 @@ qqline(heights, col = COL[1])
 qqnormsim(heights)
 ```
 
-**We can see from this plot, that many of the simulations appear to have similar q-q plot distributions to the real heights data. However, the real heights data seems to follow the normal q-q plot line even more than most of the simulations, especially as values deviate farther from the mean. We can see from both the q-q plot simulations as well as the histogram and normal probability plot that this seems to follow a normal distribution.**  
+**We can see from this plot, that many of the simulations appear to have similar q-q plot distributions to the real heights data. However, the real heights data seems to follow the normal q-q plot line even more than most of the simulations, especially as values deviate farther from the mean. We can see from both the q-q plot simulations as well as the histogram and normal probability plot that the real height data seems to follow a normal distribution.**  
 
 --------------------------------------------------------------------------------
 
@@ -378,12 +378,40 @@ sqrt((1 - p_other_machine) / (p_other_machine ^ 2))
 **Male children.** While it is often assumed that the probabilities of having a boy or a girl are the same, the actual probability of having a boy is slightly higher at 0.51. Suppose a couple plans to have 3 kids.
 
 (a) Use the binomial model to calculate the probability that two of them will be boys.
+
+**We can use the following binomial equation to calculate the probability:**  
+
+$\binom{n}{k}p^k(1-p)^{n-k} = \frac{n!}{k!(n-k)!}p^{k}(1-p)^{n-k}$
+
+```{r}
+# full calculation
+((3*2*1) / (2*1) * (1)) * ((0.51) ^ 2) * ((1 - 0.51) ^ (3 - 2))
+
+# check
+p <- 0.51
+dbinom(2, 3, p)
+```
+
+**The probability of having two boys is 0.38.**  
+
 (b) Write out all possible orderings of 3 children, 2 of whom are boys. Use these scenarios to calculate the same probability from part (a) but using the addition rule for disjoint outcomes. Confirm that your answers from parts (a) and (b) match.
+
+
+```{r}
+# scenarios
+s1 <- 0.51 * 0.51 * 0.49
+s2 <- 0.51 * 0.49 * 0.51
+s3 <- 0.49 * 0.51 * 0.51
+
+# additional rule for disjoint outcomes
+s1 + s2 + s3
+```
+
+**This confirms that answers (a) and (b) match. The probability is roughly 0.38.**  
+
 (c) If we wanted to calculate the probability that a couple who plans to have 8 kids will have 3 boys, briefly describe why the approach from part (b) would be more tedious than the approach from part (a).
 
-
-
-
+**If we wanted to calculate the probability that a couple who plans to have 8 kids will have 3 boys, part (b) would be much more tedious than the approach from part (a) because there would be many more permutations ($\binom{8}{3} = 56$ permutations) that we'd have to write out and add together to calculate the probability. Therefore, we would save a lot of time being able to utilize the formula from part (a) to make this calculation.**  
 
 
 --------------------------------------------------------------------------------
@@ -393,10 +421,25 @@ sqrt((1 - p_other_machine) / (p_other_machine ^ 2))
 **Serving in volleyball.** (4.30, p. 162) A not-so-skilled volleyball player has a 15% chance of making the serve, which involves hitting the ball so it passes over the net on a trajectory such that it will land in the opposing team’s court. Suppose that her serves are independent of each other.
 
 (a) What is the probability that on the 10th try she will make her 3rd successful serve?
+
+**We would use the negative binomial distribution to answer this question, since the last trial must be a success. We can use the following formula: **  
+
+$\binom{n-1}{k-1}p^{k}(1-p)^{n-k}$
+
+```{r}
+sequences <- (factorial(10-1) / (factorial(3-1) * (factorial(10-3)))) 
+sequences * (0.15 ^ 3) * ((1 - 0.15) ^ (10 - 3))
+```
+
+**The probability that on the 10th try she will make her 3rd successful serve is about 3.90%.**  
+
 (b) Suppose she has made two successful serves in nine attempts. What is the probability that her 10th serve will be successful?
+
+**Since each attempt is independent from one another, the probability of each attempt is also independent from one another. Therefore, each attempt has a probability of success of 0.15 - this means that the probability that her 10th serve will be successful is also 0.15.**  
+
 (c) Even though parts (a) and (b) discuss the same scenario, the probabilities you calculated should be different. Can you explain the reason for this discrepancy?
 
-
+**The reason why the probabilities are different between (a) and (b) is due to the type of information we would like to find. For (b), we are not concerned about the probabilities of the previous serves since we only would like to know the probability that the 10th serve is successful - since all attempts are independent from one another, the probability of previous attempts does not have any affect on the probability of the tenth serve. However, for (a), we would like to know the number of successes (k) out of the number of attempts (n), this follows the negative binomial distribution, where we would like to account for successes and attempts.**   
 
 
 
