@@ -10,7 +10,7 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r}
+```{r, warning=FALSE}
 library(VennDiagram)
 ```
 
