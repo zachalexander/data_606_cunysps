@@ -74,19 +74,19 @@ home sales.
     distribution of the population?
     
     
-```{r, eval=TRUE}
+```{r, eval=TRUE, cache=TRUE}
 # using R to create summary statistics and plotting the distribution
 # of the sample
 summary(samp1)
 hist(samp1)
 ```
     
-**The distribution of this sample of 50 houses is also right skewed and unimodal. The median of the sample is 1400 square feet and      the sample mean is 1504 square feet. These are slightly different from the population sample mean and median, but pretty close.**
+**The distribution of this sample of 50 houses is also right skewed and unimodal. The median of the sample is 1479 square feet and      the sample mean is 1640 square feet. These are different from the population sample mean and median.**
 
 If we're interested in estimating the average living area in homes in Ames 
 using the sample, our best single guess is the sample mean.
 
-```{r mean-samp1, eval=TRUE}
+```{r mean-samp1, eval=TRUE, cache=TRUE}
 mean(samp1)
 ```
 
@@ -103,7 +103,7 @@ population.
     
     **First, I took a sample from the area vector:**  
     
-```{r}
+```{r, cache=TRUE}
 samp2 <- sample(area, 50)
 
 # to test the last part of the question
@@ -119,9 +119,9 @@ hist(samp2)
 mean(samp2)
 ```
     
-**The sample mean for samp2 differs from samp1 (by roughly 66 square feet). To answer the final part of the question, I believe that having a larger sample size will provide a more accurate estimation of the population mean. This is confirmed when looking at the R output below - the sample of 1000 has a mean that is closer to the population mean.** 
+**The sample mean for samp2 differs from samp1. To answer the final part of the question, I believe that having a larger sample size will provide a more accurate estimation of the population mean. This is confirmed when looking at the R output below - the sample of 1000 has a mean that is closer to the population mean.** 
       
-```{r}
+```{r, cache=TRUE}
 paste('Sample of 100 mean: ', mean(samp3))
 paste('Sample of 1000 mean: ', mean(samp4))
 
@@ -331,13 +331,13 @@ Ames.  Now you'll try to estimate the mean home price.
 -   Take a random sample of size 50 from `price`. Using this sample, what is 
     your best point estimate of the population mean?
  
-```{r}
+```{r, cache=TRUE}
 price_50sample <- sample(price, 50)
 
 mean(price_50sample)
 ```
     
-  **My best point estimate of the population mean from this random sample of size 50 for price is 188,905 dollars**.
+  **My best point estimate of the population mean from this random sample of size 50 for price is 188,196 dollars**.
 
 -   Since you have access to the population, simulate the sampling 
     distribution for $\bar{x}_{price}$ by taking 5000 samples from the 
@@ -349,7 +349,7 @@ mean(price_50sample)
     
   **We will set this up similar to the R code we used to create samples for the mean living area in homes in Ames. Based on the plot below and the sampling distribution, it looks like the mean home price of the population will be around $180,000.**  
     
-```{r}
+```{r, cache=TRUE}
 # here's the for loop to compute the 5000 sample means
 sample_means50 <- rep(NA, 5000)
 
@@ -363,9 +363,9 @@ hist(sample_means50, breaks = 20, xlim = range(sample_means50))
 ```
 
 
-**We can see that we were pretty close with our estimation of the population mean by plotting the sample means. The actual mean price of the population is 180,796 dollars, which is close to our estimation of 180,868 dollars.**  
+**We can see that we were pretty close with our estimation of the population mean by plotting the sample means. The actual mean price of the population is 180,796 dollars, which is close to our estimation of 180,766 dollars.**  
 
-```{r}
+```{r, cache=TRUE}
 
 paste('sample_means50 mean value: ', mean(sample_means50))
 
@@ -380,7 +380,7 @@ paste('actual population mean: ', mean(price))
     size of 50.  Based on this sampling distribution, what would you guess to 
     be the mean sale price of homes in Ames?
     
-```{r}
+```{r, cache=TRUE}
 # here's the for loop to compute the 5000 sample means, adjusting the sample size
 # to 150 from 50
 sample_means150 <- rep(NA, 5000)
