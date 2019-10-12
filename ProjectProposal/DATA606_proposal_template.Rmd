@@ -7,7 +7,7 @@ author:
 
 ```{r setup, echo=TRUE, results='hide', warning=FALSE, message=FALSE}
 # load data
-
+election_results_df <- read.csv('https://raw.githubusercontent.com/zachalexander/data_606_cunysps/master/ProjectProposal/election_2018.csv')
 ```
 
 
@@ -15,7 +15,7 @@ author:
 
 **You should phrase your research question in a way that matches up with the scope of inference your dataset allows for.**
 
-**Was there an effect between education level and election outcome in the 2018 general election?**
+**Did educational attainment affect the outcome of the 2016 general election?**
 
 ### Cases 
 
