@@ -15,7 +15,7 @@ author:
 
 **You should phrase your research question in a way that matches up with the scope of inference your dataset allows for.**
 
-
+**Was there an effect between education level and election outcome in the 2018 general election?**
 
 ### Cases 
 
