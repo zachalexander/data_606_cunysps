@@ -1,13 +1,58 @@
 ---
-title: DATA 606 Data Project Proposal
-author: 
+title: "DATA 606 Data Project Proposal"
+author: "Zach Alexander"
 ---
 
 ### Data Preparation
 
+```{r, warning=FALSE, message=FALSE}
+library(dplyr)
+library(ggplot2)
+```
+
+
 ```{r setup, echo=TRUE, results='hide', warning=FALSE, message=FALSE}
+
 # load data
-election_results_df <- read.csv('https://raw.githubusercontent.com/zachalexander/data_606_cunysps/master/ProjectProposal/election_2018.csv')
+election_results_df <- read.csv('https://raw.githubusercontent.com/zachalexander/data_606_cunysps/master/ProjectProposal/county_level_votes.csv')
+
+education_data_df <- read.csv('https://raw.githubusercontent.com/zachalexander/data_606_cunysps/master/ProjectProposal/election_2018.csv')
+```
+
+
+```{r}
+# the dataset has many columnes, I'm subsetting down to only columns of interest
+election_results_df <- election_results_df %>% 
+  select(combined_fips, county_name, state_abbr, per_dem, per_gop)
+
+# I'm taking the rural/urban continuum codes and creating a separate variable with the qualitative 
+# values
+education_data_df <- education_data_df %>% 
+  select(fips, lesscollege_pct, ruralurban_cc) %>% 
+  mutate(ruralurban_grp = ifelse(ruralurban_cc == 1, "Counties in metro areas of 1 million population or more", 
+                ifelse(ruralurban_cc == 2, "Counties in metro areas of 250,000 to 1 million population",
+                ifelse(ruralurban_cc == 3, "Counties in metro areas of fewer than 250,000 population",
+                ifelse(ruralurban_cc == 4, "Urban population of 20,000 or more, adjacent to a metro area",
+                ifelse(ruralurban_cc == 5, "Urban population of 20,000 or more, not adjacent to a metro area",
+                ifelse(ruralurban_cc == 6, "Urban population of 2,500 to 19,999, adjacent to a metro area",
+                ifelse(ruralurban_cc == 7, "Urban population of 2,500 to 19,999, not adjacent to a metro area",
+                ifelse(ruralurban_cc == 8, "Completely rural or less than 2,500 urban population, adjacent to a metro area",
+                ifelse(ruralurban_cc == 9, "Completely rural or less than 2,500 urban population, adjacent to a metro area", NA))))))))))
+
+# since the FIP codes are found in both data frames, I can use merge to join the information from
+# both data frames into one data frame
+election_education_df <- merge(election_results_df, education_data_df, by.x = "combined_fips", by.y = "fips" ) %>% 
+  mutate(college_or_more_pct = (100 - lesscollege_pct), party_winner = ifelse(per_gop > per_dem, 'Republican', 'Democrat')) %>% 
+  select(combined_fips:per_gop, college_or_more_pct, party_winner, ruralurban_cc, ruralurban_grp)
+```
+
+```{r}
+# a quick look at the final data frame
+head(election_education_df)
+```
+
+```{r}
+names(election_education_df)
 ```
 
 
@@ -15,50 +60,70 @@ election_results_df <- read.csv('https://raw.githubusercontent.com/zachalexander
 
 **You should phrase your research question in a way that matches up with the scope of inference your dataset allows for.**
 
-**Did educational attainment affect the outcome of the 2016 general election?**
+Is educational attainment or ruralness predictive of republican wins (higher vote percentage for Donald Trump) in the 2016 presidential election?
 
 ### Cases 
 
 **What are the cases, and how many are there?**
 
-
+The cases are the number of counties in the United States (the id is FIPS code) that have educational attainment percentages, ruralness continuum codes, and voting percentages available from the 2016 election. There are 3112 counties in this dataset that contain this information out of a total of 3141 counties in the United States. Although we are missing some county-level data, this dataset still comprises about 99% of the counties that make up the United States.
 
 ### Data collection 
 
 **Describe the method of data collection.**
 
+The education percentages were calculated by Stephen Pettigrew at Harvard University [Dataverse](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/MLLQDH). It appears that the percent with a college degree or more by county population are calculations based on a dataset created by [IPUMS NHGIS, University of Minnesota](https://www.nhgis.org/). The rural/urban continuum codes (ruralurban_cc) variable, was adopted from the [United States Department of Agriculture Economic Research Service](https://www.ers.usda.gov/data-products/rural-urban-continuum-codes/). These variables were combined by Stephen Pettigrew into one dataset, which also stored other types of election data - outside the scope of this proposal.
 
 
 ### Type of study 
 
 **What type of study is this (observational/experiment)?**
 
+This is an observational study.
 
 
 ### Data Source 
 
 **If you collected the data, state self-collected. If not, provide a citation/link.**
 
+I found the dataset with 2016 election results at this site:  https://github.com/tonmcg/US_County_Level_Election_Results_08-16/blob/master/2016_US_County_Level_Presidential_Results.csv
 
+I found the dataset with the education and ruralness data at this site: https://github.com/MEDSL/2018-elections-unoffical/blob/master/election-context-2018.md
 
 
 ### Dependent Variable
 
 **What is the response variable? Is it quantitative or qualitative?**
 
+The response variable is 'per_gop' (percent of GOP vote in county) and it is quantitative.
 
 
 ### Independent Variable
 
 **You should have two independent variables, one quantitative and one qualitative.**
 
-
+My two independent variables are 'college_or_more_pct' (quantitative) and 'ruralurban_grp' (qualitative)
 
 ### Relevant summary statistics 
 
-**Provide summary statistics for each the variables. Also include appropriate visualizations related to your research question (e.g. scatter plot, boxplots, etc). This step requires the use of R, hence a code chunk is provided below. Insert more code chunks as needed.**
+Provide summary statistics for each the variables. Also include appropriate visualizations related to your research question (e.g. scatter plot, boxplots, etc). This step requires the use of R, hence a code chunk is provided below. Insert more code chunks as needed.
+
+```{r, warning=FALSE, message=FALSE}
+ggplot(election_education_df, aes(x=college_or_more_pct)) + geom_histogram()
+```
+
 
 ```{r}
-
+table(election_education_df$party_winner)
 ```
+
+```{r}
+table(election_education_df$ruralurban_grp)
+```
+
+
+```{r, warning=FALSE, message=FALSE}
+ggplot(election_education_df, aes(x=per_gop), bins = 30) + geom_histogram()
+```
+
 
