@@ -1,11 +1,11 @@
 ---
 title: 'Inference for categorical data'
 output:
+  pdf_document: default
   html_document:
     css: ./lab.css
     highlight: pygments
     theme: cerulean
-  pdf_document: default
 ---
 
 In August of 2012, news outlets ranging from the [Washington
@@ -32,11 +32,24 @@ Take a moment to review the report then address the following questions.
 1.  In the first paragraph, several key findings are reported. Do these 
     percentages appear to be *sample statistics* (derived from the data 
     sample) or *population parameters*?
+    
+  **These percentages are sample statistics since they were derived from 50,000 men and women selected from 57 countries across the globe. The population in this report is every human on earth.**
 
 2.  The title of the report is "Global Index of Religiosity and Atheism". To
     generalize the report's findings to the global human population, what must 
     we assume about the sampling method? Does that seem like a reasonable 
     assumption?
+    
+**To generalize the report's findings to the global human population, you'd have to assume the following:**    
+  
+  + **The sample was established based on random sampling**  
+  
+  + **The sample size is large enough (greater than 30)**  
+  
+  + **The observations are independent from one another**  
+    
+  **It states that a probability sample was used, therefore, this confirms that the sample was created from random selection. Because of this, and the other factors above, we can assume that the findings are generalizable.**  
+    
 
 ## The data
 
@@ -53,6 +66,8 @@ load("more/atheism.RData")
 3.  What does each row of Table 6 correspond to? What does each row of 
     `atheism` correspond to?
 
+  **Each row of Table 6 corresponds to the total unweighted sample of respondents per country. This isn't the full dataset of respondents, but an unweighted sample from each country. Each row of the 'atheism' data frame corresponds to an individual response for every respondent in the study. While Table 6 breaks down respondents into country, atheism has each individual response on its own row (88,032 in total).**  
+
 To investigate the link between these two ways of organizing this data, take a 
 look at the estimated proportion of atheists in the United States. Towards 
 the bottom of Table 6, we see that this is 5%. We should be able to come to 
@@ -65,7 +80,16 @@ the same number using the `atheism` data.
 
 ```{r us-atheism, eval=TRUE}
 us12 <- subset(atheism, nationality == "United States" & year == "2012")
+
+atheist_us12 <- subset(us12, response == "atheist")
+
+percentage_check_t6 <- length(atheist_us12$nationality) / length(us12$nationality)
+
+percentage_check_t6
 ```
+
+**After calculating the proportion, I've arrived at approximately 4.99%, which is very close to what is reported in Table 6 -- at 5%. The reason why they disagree slightly is due to Table 6 being a sample of the entire 'atheism' dataset. Table 6 has 51,927 observations, while 'atheism' has 88,032 observations.**   
+
 
 ## Inference on proportions
 
@@ -83,6 +107,32 @@ hypothesis test.
 5.  Write out the conditions for inference to construct a 95% confidence
     interval for the proportion of atheists in the United States in 2012.
     Are you confident all conditions are met?
+    
+**The conditions for inference to construct a 95% confidence intervale for the proportion of atheists in the United States in 2012 are the following:**  
+
+  + **The data needs to come from a random sample.**  
+  
+  + **There needs to be at least 10 expected successes and 10 expected failures.**  
+  
+  + **The individual observations need to be independent from one another.**  
+  
+  + **The sample size of the population should not be more than 10% of the population.**  
+  
+  **Since we know this is from a random sample, this part is met. The individual observations are also independente from one another, and a sample size of 1002 is definitely less than 10% of the population of the United States. In order to test the final condition, we can do the following calculation:**  
+  
+  $np > or = 10 \space and \space n(1-p) > or = 10$
+  
+```{r}
+x <- 1002 * 0.05
+y <- 1002 * (1 - 0.05)
+
+sum <- x + y
+x
+y
+sum
+```
+  **Since both of these are greater than or equal to 10, all conditions are met.**  
+  
 
 If the conditions for inference are reasonable, we can either calculate
 the standard error and construct the interval by hand, or allow the `inference`
@@ -103,6 +153,14 @@ the error margin for surveys of this kind is $\pm$ 3-5% at 95% confidence".
 
 6.  Based on the R output, what is the margin of error for the estimate of the 
     proportion of the proportion of atheists in US in 2012?
+    
+  **The margin of error for the estimate of the proportion of atheists in the US in 2012 is 0.014:**
+  
+```{r}
+moe <- 1.96 * (0.0069)
+moe
+```
+  
 
 7.  Using the `inference` function, calculate confidence intervals for the 
     proportion of atheists in 2012 in two other countries of your choice, and 
@@ -110,6 +168,36 @@ the error margin for surveys of this kind is $\pm$ 3-5% at 95% confidence".
     conditions for inference are met. It may be helpful to create new data 
     sets for each of the two countries first, and then use these data sets in 
     the `inference` function to construct the confidence intervals.
+    
+  **The two other countries that I chose to calculate confidence intervals are Argentina and Spain.**  
+    
+```{r}
+arg12 <- subset(atheism, nationality == "Argentina" & year == "2012")
+spain12 <- subset(atheism, nationality == "Spain" & year == "2012")
+
+
+inference(arg12$response, est = "proportion", type = "ci", method = "theoretical", 
+          success = "atheist")
+
+inference(spain12$response, est = "proportion", type = "ci", method = "theoretical", 
+          success = "atheist")
+```
+    
+```{r}
+moe_arg <- 1.96 * (0.0081)
+moe_arg
+```
+
+```{r}
+moe_spain <- 1.96 * (0.0085)
+moe_spain
+```
+
+  **The confidence interval for Argentina is (0.0547, 0.0866). The margin of error is +/- 0.159.**
+
+  **The confidence interval for Spain is (0.0734, 0.1065). The margin of error is +/- 0.0167.**
+  
+**The conditions for inference are met for both of these countries. However, if I were to try and find the confidence interval and margin of error for Vietnam, I would not have 10 or more successes and failures to utilize for this calculation (in this example, respondents that are atheist).**  
 
 ## How does the proportion affect the margin of error?
 
@@ -141,6 +229,8 @@ plot(me ~ p, ylab = "Margin of Error", xlab = "Population Proportion")
 
 8.  Describe the relationship between `p` and `me`.
 
+**As the population proportion moves closer to an even split, the margin of error increases. The margin of error is the highest when the population proportion is split evenly, and is the lowest when the population is split entirely one way over the other.**   
+
 ## Success-failure condition
 
 The textbook emphasizes that you must always check conditions before making 
@@ -162,7 +252,7 @@ process of drawing 5000 samples of size 1040 from a population with a true
 atheist proportion of 0.1. For each of the 5000 samples we compute $\hat{p}$ 
 and then plot a histogram to visualize their distribution.
 
-```{r sim-np, eval=TRUE}
+```{r sim-np, eval=TRUE, cache=TRUE}
 p <- 0.1
 n <- 1040
 p_hats <- rep(0, 5000)
@@ -188,7 +278,15 @@ distribution.
     $p = 0.1$. Be sure to note the center, spread, and shape.\
     *Hint:* Remember that R has functions such as `mean` to calculate summary
     statistics.
-
+    
+```{r}
+library(psych)
+summary(p_hats)
+describe(p_hats)
+```
+    
+  **The center of the distribution is right around 0.1 (which is the probability). The distribution is unimodal and approaching normal. There isn't much spread, and the mean and median are very close to one another with a standard deviation of 0.01.**
+    
 10. Repeat the above simulation three more times but with modified sample
     sizes and proportions: for $n = 400$ and $p = 0.1$, $n = 1040$ and 
     $p = 0.02$, and $n = 400$ and $p = 0.02$. Plot all four histograms
@@ -197,11 +295,63 @@ distribution.
     larger two-by-two plot. Describe the three new sampling distributions. 
     Based on these limited plots, how does $n$ appear to affect the 
     distribution of $\hat{p}$? How does $p$ affect the sampling distribution?
+    
+```{r}
+# simulation 2
+p_2 <- 0.1
+n_2 <- 400
+p_hats2 <- rep(0, 5000)
 
+for(i in 1:5000){
+  samp_2 <- sample(c("atheist", "non_atheist"), n_2, replace = TRUE, prob = c(p_2, 1-p_2))
+  p_hats2[i] <- sum(samp_2 == "atheist")/n_2
+}
+```
+
+```{r}
+# simulation 3
+p_3 <- 0.02
+n_3 <- 1040
+p_hats3 <- rep(0, 5000)
+
+for(i in 1:5000){
+  samp_3 <- sample(c("atheist", "non_atheist"), n_3, replace = TRUE, prob = c(p_3, 1-p_3))
+  p_hats3[i] <- sum(samp_3 == "atheist")/n_3
+}
+```
+
+```{r}
+# simulation 4
+p_4 <- 0.02
+n_4 <- 400
+p_hats4 <- rep(0, 5000)
+
+for(i in 1:5000){
+  samp_4 <- sample(c("atheist", "non_atheist"), n_4, replace = TRUE, prob = c(p_4, 1-p_4))
+  p_hats4[i] <- sum(samp_4 == "atheist")/n_4
+}
+```
+
+```{r}
+# plot of all 4 histograms
+
+par(mfrow = c(2, 2))
+
+hist(p_hats, main = "p = 0.1, n = 1040", xlim = c(0, 0.18))
+hist(p_hats2, main = "p = 0.1, n = 400", xlim = c(0, 0.18))
+hist(p_hats3, main = "p = 0.02, n = 1040", xlim = c(0, 0.18))
+hist(p_hats4, main = "p = 0.02, n = 400", xlim = c(0, 0.18))
+```
+    
 Once you're done, you can reset the layout of the plotting window by using the 
 command `par(mfrow = c(1, 1))` command or clicking on "Clear All" above the 
 plotting window (if using RStudio). Note that the latter will get rid of all 
 your previous plots.
+
+```{r}
+par(mfrow = c(1, 1))
+```
+
 
 11. If you refer to Table 6, you'll find that Australia has a sample 
     proportion of 0.1 on a sample size of 1040, and that Ecuador has a sample 
@@ -209,6 +359,27 @@ your previous plots.
     these point estimates are actually the truth. Then given the shape of 
     their respective sampling distributions, do you think it is sensible to 
     proceed with inference and report margin of errors, as the reports does?
+
+
+```{r}
+aust1 <- 1040 * 0.1
+aust2 <- 1040 * (1 - 0.1)
+
+aust1
+aust2
+```
+**It is sensible to proceed with inference and report margin of errors for Australia, since it meets both conditions of $np > or = 10 and n(1-p) > or = 10$.**  
+
+
+```{r}
+ecua1 <- 400 * 0.02
+ecua2 <- 400 * (1 - 0.02)
+
+ecua1
+ecua2
+```
+
+**However, it is not sensible to proceed with inference and report margin of errors for Ecuador, since it does not meet both conditions of np > or = 10 and n(1-p) > or = 10. n(1-p) = 8 which is less than 10.**
 
 * * *
 ## On your own
