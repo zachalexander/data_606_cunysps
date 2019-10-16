@@ -398,14 +398,102 @@ from 2005 and 2012 for 39 countries.
     *Hint:* Create a new data set for respondents from Spain. Form
     confidence intervals for the true proportion of athiests in both
     years, and determine whether they overlap.
+    
+    
+  **The conditions for inference to construct a 95% confidence interval for the proportion of atheists in Spain in 2005 and in 2012 are the following:**  
+
+  + **The data needs to come from a random sample.**  
+  
+  + **There needs to be at least 10 expected successes and 10 expected failures.**  
+  
+  + **The individual observations need to be independent from one another.**  
+  
+  + **The sample size of the population should not be more than 10% of the population.**  
+  
+  
+  **Since the proportions meet this criteria, we are able to proceed to forming confidence intervals.**  
+    
+  + **NULL HYPOTHESIS (H0): there isn't a difference in the proportion of atheists in Spain from 2005 to 2012.**  
+  + **ALTERNATIVE HYPOTHESIS (HA): there is a difference in the proportion of atheists in Spain from 2005 to 2012.**
+    
+```{r, warning=FALSE}
+spn_05_12 <- subset(atheism, nationality == "Spain" & year == "2005"  | 
+                      nationality == "Spain" & year == "2012")
+inference(y = spn_05_12$response, x = spn_05_12$year, est = "proportion",
+          type = "ht", null = 0, alternative = "twosided", method = "theoretical", success = "atheist")
+```
+    
+**Since the p-value between these two proportions is greater than 0.05, we cannot reject the null hypothesis. Therefore, we can conclude that there isn't convincing evidence that Spain has seen a change in its atheism index between 2005 and 2012.**  
+    
 
     **b.** Is there convincing evidence that the United States has seen a
     change in its atheism index between 2005 and 2012?
+    
+  **The conditions for inference to construct a 95% confidence interval for the proportion of atheists in Spain in 2005 and in 2012 are the following:**  
+
+  + **The data needs to come from a random sample.**  
+  
+  + **There needs to be at least 10 expected successes and 10 expected failures.**  
+  
+  + **The individual observations need to be independent from one another.**  
+  
+  + **The sample size of the population should not be more than 10% of the population.**  
+  
+  
+  **Since the proportions meet this criteria, we are able to proceed to forming confidence intervals.**  
+    
+  + **NULL HYPOTHESIS (H0): there isn't a difference in the proportion of atheists in the U.S. from 2005 to 2012.**  
+  + **ALTERNATIVE HYPOTHESIS (HA): there is a difference in the proportion of atheists in U.S. from 2005 to 2012.**
+  
+```{r, warning=FALSE}
+us_05_12 <- subset(atheism, nationality == "United States" & year == "2005"  | 
+                     nationality == "United States" & year == "2012")
+inference(y = us_05_12$response, x = us_05_12$year, est = "proportion",
+          type = "ht", null = 0, alternative = "twosided", method = "theoretical", success = "atheist")
+```
+  
+  **From the p-value above, which is less than 0.05, we can reject the null hypothesis and accept the alternative hypothesis that there is convincing evidence the U.S. has seen a change in its atheism index from 2005 to 2012.**  
 
 -   If in fact there has been no change in the atheism index in the countries 
     listed in Table 4, in how many of those countries would you expect to 
     detect a change (at a significance level of 0.05) simply by chance?\
     *Hint:* Look in the textbook index under Type 1 error.
+    
+  **If there are large differences in the point estimates from 2005 to 2012 and a small margin of error due to a large sample size, then I'd expect to detect a change at at significance level of 0.05 simply by chance (about 11 out of the 39 countries listed with a point difference of +/- 4% or greater). However, if the statistical tests do show that there is a significant difference and there actually isn't a change in the atheism index, then this would be an example of a Type 1 error.**
+  
+  **An example of this would be Macedonia (point estimate difference of 5%):**  
+  
+```{r}
+mac05 <- subset(atheism, nationality == "Macedonia" & year == "2005")
+mac12 <- subset(atheism, nationality == "Macedonia" & year == "2012")
+
+inference(mac05$response, est = "proportion", type = "ci", method = "theoretical", 
+          success = "atheist")
+
+inference(mac12$response, est = "proportion", type = "ci", method = "theoretical", 
+          success = "atheist")
+```
+```{r}
+p_mac05 = 0.0298
+n_mac05 = 1209 
+p_mac12 = 0.0099
+n_mac12 = 1209
+
+PE_mac = p_mac12 - p_mac05
+
+SE_mac = sqrt(((p_mac05*(1-p_mac05))/n_mac05)+((p_mac12*(1-p_mac12))/n_mac12))
+SE_mac
+```
+  
+```{r}
+PE_mac + (1.96 * SE_mac)
+```
+
+```{r}
+PE_mac - (1.96 * SE_mac)
+```
+
+**If there wasn't actually a change in the atheism index, then Macedonia would be an example of a Type 1 error.**  
 
 -   Suppose you're hired by the local government to estimate the proportion of 
     residents that attend a religious service on a weekly basis. According to 
@@ -415,4 +503,31 @@ from 2005 and 2012 for 39 countries.
     guidelines?\
     *Hint:* Refer to your plot of the relationship between $p$ and margin of 
     error. Do not use the data set to answer this question.
+    
+  **By referring back to the plot of the relationship between $p$ and margin of error, and given that we do not know what to expect from $p$, we'll have to be safe and calculate a sample size reflecting a proportion of an even split (50/50), since this would yield the highest margin of error for a population.**
+  
+  **We also have the following equations to work with:**  
+  
+  $Margin \space of \space Error = z * \frac{\sqrt{(p*(1-p)}}{n}$  
+  
+  **And solving for N:**  
+
+  $N = \frac{z^2 \times p(1-p)}{ME \space \times 2}$
+  
+```{r}
+# a 50/50 split would be a probability of 0.5
+prob <- 0.5
+
+# since we want a margin of error no greater than 0.1, we'll set it as such
+ME <- .01
+
+z <- qnorm(0.975)
+
+# then, given a 95% confidence interval, we can use the following equation to calculate for n
+n <- ((1.96^2)*prob*(1-prob))/((ME)^2)
+n <- round(n, digits = 0)
+n
+```
+  
+**It looks like, to be safe, you'd need to sample at least 9,604 individuals to ensure that you are within the guidelines.**    
 
