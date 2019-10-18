@@ -512,7 +512,7 @@ PE_mac - (1.96 * SE_mac)
   
   **And solving for N:**  
 
-  $N = \frac{z^2 \times p(1-p)}{ME \space \times 2}$
+  $N = \frac{z^2 \times p(1-p)}{ME^{2}}$
   
 ```{r}
 # a 50/50 split would be a probability of 0.5
