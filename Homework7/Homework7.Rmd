@@ -123,7 +123,7 @@ histPlot(hsb2$read - hsb2$write, col = COL[1],
 
 (b) Are the reading and writing scores of each student independent of each other?
 
-**The reading and writing scores of each student are independent of each other, since this was obtained from a simple random sample of 200 students.**  
+**The reading and writing scores of each student are not independent of each other since cognitive ability (reading/writing scores) are dependent.**  
 
 (c) Create hypotheses appropriate for the following research question: is there an evident difference in the average scores of students in the reading and writing exam?
 
@@ -203,9 +203,53 @@ axis(1, at = c(1,2), labels = c("automatic","manual"))
 axis(2, at = c(15,25,35))
 ```
 
++ **H0: There is no difference between average highway mileage of manual and automatic cars.**  
+
++ **HA: There is a difference between average highway mileage of manual and automatic cars.**  
 
 
+**First, we'll find the point estimate of the difference in the means between automatic and manual transmissions:**  
+```{r}
+mean_diff <- 27.88 - 22.92
+paste0('The mean difference is ', round(mean_diff, digits = 2))
+```
 
+**Then, in order to see if we can model this difference using a t-distribution, we'll need to make sure of the following:**  
+
++ **Independence, extended: The data are independent within and between the two groups (e.g. the data come from independent random samples) -- this is true.**  
+
++ **Normality: check the outliers rull of thumb for each group separately. -- there do not appear to be any clear outliers, therefore this condition is also met. We can proceed.**  
+
+**Next, we'll calculate the standard error using the sample standard deviations with this formula:**  
+
+$SE = \sqrt{\frac{s^{2}_{aut}}{n_{aut}} + \frac{s^{2}_{man}}{n_{man}}}$
+
+```{r}
+sd_man <- 5.01
+sd_aut <- 5.29
+n_samp <- 26
+
+SE_fuel <- sqrt(((sd_man^2)/n_samp)) + ((sd_aut^2)/(n_samp))
+paste0('The standard error is ', round(SE_fuel, digits = 2))
+```
+
+**With $df = 25$, we can now calculate the confidence interval after determining the critical value of $t^{*}_{25}$, which is:**  
+
+```{r}
+crit_t <- abs(qt(0.02, 25))
+paste0('The critical value of t is ', round(crit_t, digits = 2))
+```
+
+**And the confidence interval:**  
+```{r}
+ci_upper <- mean_diff + crit_t * SE_fuel
+ci_lower <- mean_diff - crit_t * SE_fuel
+
+paste0('A 98% confidence interval is (', round(ci_lower, digits = 2),
+       ', ', round(ci_upper, digits = 2), ').')
+```
+
+**To interpret this, we can reject the null hypothesis that there is no difference between the mean difference between average highway mileage of manual and automatic cars since the confidence interval does not bound to 0.**  
 
 
 --------------------------------------------------------------------------------
@@ -214,9 +258,22 @@ axis(2, at = c(15,25,35))
 
 **Email outreach efforts.** (7.34, p. 284) A medical research group is recruiting people to complete short surveys about their medical history. For example, one survey asks for information on a person’s family history in regards to cancer. Another survey asks about what topics were discussed during the person’s last visit to a hospital. So far, as people sign up, they complete an average of just 4 surveys, and the standard deviation of the number of surveys is about 2.2. The research group wants to try a new interface that they think will encourage new enrollees to complete more surveys, where they will randomize each enrollee to either get the new interface or the current interface. How many new enrollees do they need for each interface to detect an effect size of 0.5 surveys per enrollee, if the desired power level is 80%?
 
+**Since we have a significance level $\alpha = 0.05$, and a targeted power of 80% ($\beta = 0.80$), we'll need to do the following calculations:** 
 
+```{r}
+# standard z-score for 95% confidence interval
+z_05 <- 1.96
 
+# standard z-score of lower tail of 80%
+z_80 <- 0.84
 
+effect_size <- 0.5
+sd_surveys = 2.2
+sample_size_needed <- (sd_surveys^2 / effect_size^2) * ((z_05 + z_80)^2)
+
+paste0('The sample size needed is at least ', ceiling(sample_size_needed), 
+' new enrollees per interface.')
+```
 
 
 --------------------------------------------------------------------------------
@@ -257,8 +314,27 @@ boxPlot(gss_sub$hrs1, fact = gss_sub$degree,
 ```
 
 (a) Write hypotheses for evaluating whether the average number of hours worked varies across the five groups.
+
+**The hypotheses for this ANOVA test are:**  
+
++ **H0: The average number of hours worked per week is not different across the five education groups.**  
+
++ **HA: The average number of hours worked per week is different across the five education groups.**  
+
 (b) Check conditions and describe any assumptions you must make to proceed with the test.
+
++ **The observations are independent within and across groups -- this is true, given that an individual cannot be in two different education groups, the observations will not overlap in the groups.**  
+
++ **The data within each group are nearly normal -- this is true, looking at the box plots above, each seem to have a well defined center, and they seem to approach normalilty (they aren't skewed), and the sample sizes for all groups are quite large (greater than 30).**  
+
++ **The variability across the groups is about equal -- this is also true when observing the standard deviations across the groups, they all seem to be similar (one group does not have a much higher standard deviation than others).**  
+
 (c) Below is part of the output associated with this test. Fill in the empty cells.
+
+```{r}
+residuals_aov <- aov(hrs1 ~ degree, data = gss_sub)
+summary(residuals_aov)
+```
 
 \begin{center}
 \renewcommand{\arraystretch}{1.25}
@@ -270,25 +346,25 @@ boxPlot(gss_sub$hrs1, fact = gss_sub$degree,
                                     & F-value      
                                             & Pr($>$F) \\ 
   \hline
-degree      & \fbox{\textcolor{white}{{\footnotesize XXXXX}}}       
-                    & \fbox{\textcolor{white}{{\footnotesize XXXXX}}}       
+degree      & \fbox{4}       
+                    & \fbox{2006}       
                             & 501.54    
-                                    & \fbox{\textcolor{white}{{\footnotesize XXXXX}}}   
+                                    & \fbox{2.189}   
                                             & 0.0682 \\ 
-Residuals   & \fbox{\textcolor{white}{{\footnotesize XXXXX}}} 
+Residuals   & \fbox{1167} 
                     & 267,382     
-                            & \fbox{\textcolor{white}{{\footnotesize  XXXXX}}}          
+                            & \fbox{229.1}          
                                     &       
                                             &  \\ 
    \hline
-Total       & \fbox{\textcolor{white}{{\footnotesize XXXXX}}} 
-                    &\fbox{\textcolor{white}{{\footnotesize XXXXX}}}
+Total       & \fbox{1171} 
+                    &\fbox{269,388}
 \end{tabular}
 \end{center}
 
 (d) What is the conclusion of the test?
 
-
+**Because we have a p-value of 0.0682, which is greater than 0.05, we accept the null hypothesis that the average number of hours worked per week is not different across the five education groups.**  
 
 
 
