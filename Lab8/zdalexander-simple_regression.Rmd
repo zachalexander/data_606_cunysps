@@ -112,8 +112,8 @@ intercept of your line as well as the sum of squares.
     
 **After running the function several times, the smallest sum of squares value I could come up with was 129877.5. I don't have a neighbor sitting next to me, but I'm assuming that our sum of squares may not be the same, but would be close if we are both attempting to minimize the sum of squared residuals.**  
 
-![First set of plot_ss runs](/Users/zdalexander/Desktop/grad_school/data_606_cunysps/Lab8/run1.png)
-![Second set of plot_ss runs](/Users/zdalexander/Desktop/grad_school/data_606_cunysps/Lab8/run2.png)
+![First set of plot_ss runs](C:/Users/zalexander/Desktop/data606_cunysps/data_606_cunysps/Lab8/run1.png)
+![Second set of plot_ss runs](C:/Users/zalexander/Desktop/data606_cunysps/data_606_cunysps/Lab8/run2.png)
 
 ## The linear model
 
@@ -251,6 +251,8 @@ abline(h = 0, lty = 3)  # adds a horizontal dashed line at y = 0
 
 6.  Is there any apparent pattern in the residuals plot? What does this indicate
     about the linearity of the relationship between runs and at-bats?
+    
+**There does not appear to be an apparent pattern in the residuals plot. This indicates that it is reasonable to try to fit a linear model to this data, however, it is unclear whether there is statistically significant evidence that the slope parameter is different from zero.**  
 
 *Nearly normal residuals*: To check this condition, we can look at a histogram
 
@@ -267,11 +269,15 @@ qqline(m1$residuals)  # adds diagonal line to the normal prob plot
 
 7.  Based on the histogram and the normal probability plot, does the nearly 
     normal residuals condition appear to be met?
+    
+**Looking at the histogram and the normal probability plot, it does appear that the nearly normal residuals condition is met -- although it appears to be slightly right skewed, it is approaching a normal distribution. Additionally, the normal probability plot also appears to show most values close to the qqline.**  
 
 *Constant variability*:
 
 8.  Based on the plot in (1), does the constant variability condition appear to 
     be met?
+    
+**The constant variability condition does appear to be met, since the first plot in this lab shows roughly constant variability of points around the least squares line. There seems to be a pretty good balance between the variability of y and the variability of x.**
     
 * * *
 
@@ -280,11 +286,29 @@ qqline(m1$residuals)  # adds diagonal line to the normal prob plot
 -   Choose another traditional variable from `mlb11` that you think might be a 
     good predictor of `runs`. Produce a scatterplot of the two variables and fit 
     a linear model. At a glance, does there seem to be a linear relationship?
+    
+**I'll choose the 'wins' variable to see if it is a good predictor of 'runs', since it would make sense that there would be a relationship between the number of runs scored and the number of wins. See below for my scatterplot:**
+
+```{r}
+plot(mlb11$runs ~ mlb11$wins)
+m3 <- lm(runs ~ wins, data = mlb11)
+abline(m3)
+```
+
+**At a glance, there does seem to be a linear relationship between the number of runs and wins. It also appears to be a positive relationship, where the more runs that are scored by a team reflects more wins by a team.**  
+
 
 -   How does this relationship compare to the relationship between `runs` and 
     `at_bats`? Use the R$^2$ values from the two model summaries to compare. 
     Does your variable seem to predict `runs` better than `at_bats`? How can you
     tell?
+    
+```{r}
+summary(m2)
+summary(m3)
+```
+    
+**It appears that 'wins' does not predict 'runs' as well as 'at-bats' when comparing the adjusted r-squared values, 0.3381 and 0.6132 respectively. Since the wins variable would only account for about 34% of the variability in runs, and at-bats would account for about 61% of the variability in runs, this can be concluded.**  
 
 -   Now that you can summarize the linear relationship between two variables, 
     investigate the relationships between `runs` and each of the other five 
@@ -292,6 +316,56 @@ qqline(m1$residuals)  # adds diagonal line to the normal prob plot
     conclusion using the graphical and numerical methods we've discussed (for 
     the sake of conciseness, only include output for the best variable, not all 
     five).
+    
+**We will now look at the remaining traditional variables of 'hits', 'homeruns', bat_avg', 'strikeouts', and 'stolen_bases'.**  
+
+```{r}
+summary(m1)
+```
+
+
+```{r}
+m4 <- lm(runs ~ hits, data = mlb11) # runs and hits
+summary(m4)
+```
+
+```{r}
+m5 <- lm(runs ~ homeruns, data = mlb11) # runs and homeruns
+summary(m5)
+```
+
+```{r}
+m6 <- lm(runs ~ bat_avg, data = mlb11) # runs and bat_avg
+summary(m6)
+```
+
+```{r}
+m7 <- lm(runs ~ strikeouts, data = mlb11) # runs and strikeouts
+summary(m7)
+```
+
+```{r}
+m8 <- lm(runs ~ stolen_bases, data = mlb11) # runs and stolen_bases
+summary(m8)
+```
+
+**It appears that batting average seems to be the best predictor of runs with an adjusted R-squared value of 0.6438. This was the highest adjusted R-square value out of the the traditional variables, and indicates that about 64% of the variability in runs can be explained by batting average. Here's the plot:**  
+```{r}
+plot(mlb11$runs ~ mlb11$bat_avg)
+abline(m6)
+```
+
+**Also, by plotting the residuals we can see the following:**
+
+```{r}
+plot(m6$residuals ~ mlb11$bat_avg)
+abline(h = 0, lty = 3)  # adds a horizontal dashed line at y = 0
+
+qqnorm(m6$residuals)
+qqline(m6$residuals)  # adds diagonal line to the normal prob plot
+```
+
+**There seems to be a strong relationship between the number of runs scored and batting average. The plots confirm that there is linearity, nearly normal residuals, and constant variability.**  
 
 -   Now examine the three newer variables. These are the statistics used by the 
     author of *Moneyball* to predict a teams success. In general, are they more 
@@ -300,13 +374,59 @@ qqline(m1$residuals)  # adds diagonal line to the normal prob plot
     analyzed, which seems to be the best predictor of `runs`? Using the limited 
     (or not so limited) information you know about these baseball statistics, 
     does your result make sense?
+    
+```{r}
+m_new1 <- lm(runs ~ new_onbase, data = mlb11) # runs and on-base percentage
+summary(m_new1)
+```
+    
+```{r}
+m_new2 <- lm(runs ~ new_slug, data = mlb11) # runs and slugging percentage
+summary(m_new2)
+```
+    
+```{r}
+m_new3 <- lm(runs ~ new_obs, data = mlb11) # runs and on-base plus slugging
+summary(m_new3)
+```
+    
+**After looking at these new variables, it appears that they are more effective at predicting runs than the old variables. I believe this is the case because the adjusted R-square values are much higher than the old variables, and can account for more of the variability in runs. For instance, the on-base plus slugging number can account for about 93% of the variability in runs, whereas the highest adjusted R-square value for the old variables was around 64%. This can also be confirmed by the plots of batting average (best predictor of old variables), and on-base plus slugging (best predictor of new variables). See below for the comparison:**
 
+
+```{r}
+plot(mlb11$runs ~ mlb11$bat_avg) # best predictor of old variables
+abline(m6)
+
+plot(mlb11$runs ~ mlb11$new_obs) # best predictor of new variables
+abline(m_new3)
+```
+
+**We can visually see that the residuals are much smaller for 'new_obs' than they are for 'bat_avg'.**  
+
+**Slugging percentage is calculated as the total number of bases divided by the number of at-bats, whereas batting average is the number of hits divided by the total number of at-bats. Given that we see on-base percentage account for roughly 84% of the variability in runs, and this metric added to the slugging percentage that accounts for even more variability of runs, it does make sense that the 'new_obs' variable which adds these two together would account for the most variability in runs. In terms of thinking through it from a baseball perspective, it makes sense that if a team has more people on base, there would intuitively be a better chance that they would score more runs, since there would be more of an opportunity to advance those runners to score runs.**    
 -   Check the model diagnostics for the regression model with the variable you 
     decided was the best predictor for runs.
 
+**Here's a plot of the histogram for 'new_obs':**  
+```{r}
+hist(m_new3$residuals)
+```
 
+**Here's a plot of the residuals for 'new_obs':**  
 
+```{r}
+plot(mlb11$new_obs, m_new3$residuals)
+abline(h = 0, lty = 3)
+```
 
+**And here is the qqplot:**  
+
+```{r}
+qqnorm(m_new3$residuals)
+qqline(m_new3$residuals)
+```
+
+**The linear diagnostics show linearity, nearly normal residuals (seen in the histogram which has a unimodal shape centered around 0), and the qqplot also showing residuals very close to the qqline. Finally, there seems to be constant variability, which is shown in the plot of the residuals above, where there seems to be pretty equal variability of residuals.**  
 
 
 <!-- This is a product of OpenIntro that is released under a Creative Commons Attribution-ShareAlike 3.0 Unported. This lab was written by Mine Çetinkaya-Rundel and Andrew Bray. -->
