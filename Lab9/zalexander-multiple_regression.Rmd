@@ -235,7 +235,7 @@ lm_btyavg <- lm(evals$score ~ evals$bty_avg)
 summary(lm_btyavg)
 ```
 
-+ **Nearly normal residuals -- by looking at the histogram of residuals, it appears that the distribution is a bit left skewed, similar to question 6, but is somewhat approaching a normal distribution. If some outliers are removed, it would appear to be close to a normal distribution of residuals.**  
++ **Nearly normal residuals (checking outliers) -- by looking at the histogram of residuals, it appears that the distribution is a bit left skewed, similar to question 6, but is somewhat approaching a normal distribution. If some outliers are removed, it would appear to be close to a normal distribution of residuals.**  
 
 ```{r}
 hist(m_bty_gen$residuals, breaks = 20)
@@ -244,7 +244,7 @@ hist(m_bty_gen$residuals, breaks = 20)
 + **Constant variability -- there does appear to be pretty constant variability of the residuals when looking at the residuals plot. There doesn't seem to be a lot of clustering, and the residuals seem to be scattered fairly equally, indicating constant variability.**  
 
 ```{r}
-plot(m_bty_gen$residuals)
+plot(abs(m_bty_gen$residuals))
 abline(h = 0)
 ```
 
@@ -411,7 +411,7 @@ qqline(best_model$residuals)
 hist(best_model$residuals)
 ```
 
-**Given that the histogram and q-q plot seem to indicate that the distribution is a bit left skewed, I worry that the condition for this model is reasonable. This is similar to my concern in the above exercises and models.**
+**Given that the histogram and q-q plot seem to indicate that the distribution is a bit left skewed, I worry that the condition for this model is reasonable. There does appear to be a few outliers here. This is similar to my concern in the above exercises and models.**
 
 ```{r}
 plot(best_model$residuals)
