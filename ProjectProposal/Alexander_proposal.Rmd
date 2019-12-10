@@ -2,13 +2,35 @@
 title: "DATA 606 Data Project Proposal"
 author: "Zach Alexander"
 output:
+  pdf_document: default
   html_document:
     df_print: paged
 ---
 
+
 ***
 
-### Data Preparation
+### Introduction
+
+Labeled by many news outlets as the "biggest upset in U.S. history", a large narrative about a "divided" America continued to develop in the days following the 2016 presidential election. A week after the election, [The Upshot by the New York Times](!https://www.nytimes.com/2016/11/12/upshot/this-election-highlighted-a-growing-rural-urban-split.html) published an article that examined the stark differences in votes by candidate relative to where voters lived in the U.S. -- it became obvious very quickly that many living in rural areas cast their vote for Republican candidate, Donald Trump, while many living in urban centers cast their vote for the Democratic candidate, Hilary Clinton. Many would argue that this "divided America" narrative continues to dominate current news headlines and will be an influential factor in the way candidates run their campaigns over the next 12 months. With 2020 presidential candidates currently pooring [hundreds of thousands of dollars into rural states](!https://www.nytimes.com/2019/12/07/us/politics/democrats-2020.html), vying for their votes, we can see just how pivotal voters in these regions could be for the outcome of the election next year.
+
+For my project, I thought it would be interesting to take a look back at the election data from 2016 in order to think about the urban/rural divide and it's implications for the 2020 election. 
+
+#### Research question 
+
+**You should phrase your research question in a way that matches up with the scope of inference your dataset allows for.**
+
+> Is educational attainment or ruralness predictive of the proportion of GOP votes by county in the 2016 presidential election?
+
+The "urban/rural divide" and educational differences will be big taking points over the next 12 months. As a way to explore these talking points further, I'll see if there are large differences based on these factors, and if so, determine whether or not it possible to build some type of predictive model for the 2020 election.
+
+***
+
+### Data
+
+#### Data collection 
+
+***
 
 ```{r, warning=FALSE, message=FALSE}
 library(dplyr)
@@ -76,27 +98,17 @@ election_education_df <- merge(election_results_df, education_data_df, by.x = "c
 head(election_education_df)
 ```
 
-***
-
-### Research question 
-
-**You should phrase your research question in a way that matches up with the scope of inference your dataset allows for.**
-
-> Is educational attainment or ruralness predictive of the proportion of GOP votes by county in the 2016 presidential election?
-
-I thought these two items would be interesting to look into in lieu of the upcoming 2020 election. I had read a lot of articles after 2016 about the "urban/rural divide", and educational differences between Republicans and Democrats, and thought it would be interesting to explore the election data a bit more to see if these factors really do seem to have an affect on voter choice. If I do see large differences based on these factors, it would be neat to build some type of predictive model in the lead up to the 2020 election.
-
-### Cases 
-
-**What are the cases, and how many are there?**
-
-The cases are the number of counties in the United States (the id is FIPS code) that have educational attainment percentages, ruralness continuum codes, and voting percentages available from the 2016 election. There are 3112 counties in this dataset that contain this information out of a total of 3141 counties in the United States. Although we are missing some county-level data, this dataset still comprises about 99% of the counties that make up the United States.
-
-### Data collection 
 
 **Describe the method of data collection.**
 
-The education percentages were calculated by Stephen Pettigrew at Harvard University [Dataverse](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/MLLQDH). It appears that the percent with a college degree or more by county population are calculations based on a dataset created by [IPUMS NHGIS, University of Minnesota](https://www.nhgis.org/). The rural/urban continuum codes (ruralurban_cc) variable, was adopted from the [United States Department of Agriculture Economic Research Service](https://www.ers.usda.gov/data-products/rural-urban-continuum-codes/) in 2013. These variables were combined by Stephen Pettigrew into one dataset, which also stored other types of election data - outside the scope of this proposal.
+The education percentages were calculated by Stephen Pettigrew at Harvard University [Dataverse](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/MLLQDH). It appears that the percent with a college degree or more by county population are calculations based on a dataset created by [IPUMS NHGIS, University of Minnesota](https://www.nhgis.org/). The rural/urban continuum codes (ruralurban_cc) variable, was adopted from the [United States Department of Agriculture Economic Research Service](https://www.ers.usda.gov/data-products/rural-urban-continuum-codes/) in 2013. These variables were combined by Stephen Pettigrew into one dataset, which also stored other types of election data - outside the scope of this investigation.
+
+
+#### Cases 
+
+**What are the cases, and how many are there?**
+
+The cases are the number of counties in the United States (the id is FIPS code) that have educational attainment percentages, ruralness continuum codes, and voting percentages available from the 2016 election. There are 3112 counties in this dataset that contain this information out of a total of 3141 counties in the United States. Although we are missing some county-level data, this dataset still comprises about 99% of the counties that make up the United States.  
 
 
 ### Type of study 
@@ -183,7 +195,7 @@ election_education_df$ruralurban_grp_3_way <- ifelse(
 
 ***
 
-After this was setup, I could then look at summary statistics of the 'per_gop' variable and 'college_or_more_pct' variable split by this new variable.
+After this was set up, I could then look at summary statistics of the 'per_gop' variable and 'college_or_more_pct' variable split by this new variable.
 ```{r}
 # summary statistics of the percent voting for Donald Trump split by ruralness
 describeBy(election_education_df$per_gop,
@@ -219,6 +231,6 @@ boxplot(college_or_more_pct~ruralurban_grp_3_way,data=election_education_df,
    ylab="Percent with at least a college degree")
 ```
 
-Although this second boxplot is a bit outside the scope of the reseearch question, I thought it would be interesting to see if there are any noticeable differences in educational attainment across the ruralness continuum as well to build a bit more context.
+Although this second boxplot is a bit outside the scope of the research question, I thought it would be interesting to see if there are any noticeable differences in educational attainment across the ruralness continuum as well to build a bit more context.
 
 
