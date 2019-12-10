@@ -320,7 +320,7 @@ ggplot(election_education_df, aes(college_or_more_pct, per_gop)) +
 
 \pagebreak
 
-![](C:\Users\zalexander\Desktop\data606_cunysps\data_606_cunysps\ProjectProposal\trump_counties.png)
+![](C:\Users\zalexander\Desktop\data606_cunysps\data_606_cunysps\Final_Project\trump_counties.png)
 
 
 \pagebreak
@@ -352,9 +352,9 @@ To run some tests on our 3-way ruralness variable (`ruralurban_grp_3_way`), we'l
 * All observations must be independent.
     + The election and ruralness data were not sampled, however, there is not an obvious reason why independence of observations would not hold for most or all of the values in the dataset.  **This condition is met.**
 * The data in each group must be nearly normal.
-    + Given the large sample size for each group, we should be fine, but in order to be safe I removed a few outliers from the full dataset in order to ensure that each group was approaching a normal distribution. In total, I removed 189 counties from the dataset. **This is satisfied.**
+    + Given the large sample size for each group, we should be fine, but in order to be safe I removed a few outliers from the full dataset in order to ensure that each group was approaching a normal distribution. In total, I removed 189 counties from the dataset. **This is condition is met.**
 * The variance within each group must be approximately equal.
-    + We can see from the side-by-side plot below that there is approximately equal variance across groups. **This is satisfied.**  
+    + We can see from the side-by-side plot below that there is approximately equal variance across groups. **This is condtion is met.**  
     
 
 
