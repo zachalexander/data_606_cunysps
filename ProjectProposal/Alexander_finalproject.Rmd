@@ -5,7 +5,27 @@ output:
   pdf_document: default
   html_document:
     df_print: paged
+urlcolor: blue
 ---
+
+
+```{r, warning=FALSE, message=FALSE, echo=FALSE}
+library(dplyr)
+library(ggplot2)
+library(psych)
+library(knitr)
+library(kableExtra)
+library(tidyverse)
+```
+
+```{r setup, echo=FALSE, results='hide', warning=FALSE, message=FALSE}
+# load data
+election_results_df <- read.csv(paste0('https://raw.githubusercontent.com/zachalexander/',
+                        'data_606_cunysps/master/ProjectProposal/county_level_votes.csv'))
+
+education_data_df <- read.csv(paste0('https://raw.githubusercontent.com/zachalexander/',
+                        'data_606_cunysps/master/ProjectProposal/education_data_fip.csv'))
+```
 
 ## I. INTRODUCTION
 
@@ -15,7 +35,7 @@ For my project, I thought it would be interesting to take a look back at the ele
 
 ### Research question(s) 
 
-> Was there a significant difference in the proportion of GOP votes by county in the 2016 presidential election based on county type (Rural, Suburban, or Urban)?
+> Was there a significant difference in the mean proportion of GOP votes in the 2016 presidential election based on county type (Rural, Suburban, or Urban)?
 
 > Is educational attainment and/or ruralness predictive of the proportion of GOP votes by county in the 2016 presidential election?
 
@@ -25,44 +45,20 @@ The "urban/rural divide" and educational differences will be big talking points 
 
 ## II. DATA
 
-
 ### Data collection 
-
-Here are the libraries I used for my project:  
-
-```{r, warning=FALSE, message=FALSE}
-library(dplyr)
-library(ggplot2)
-library(psych)
-library(knitr)
-library(kableExtra)
-library(tidyverse)
-```
-
-I then loaded the data from my GitHub account, after downloading the files from the links provided below:  
-
-```{r setup, echo=TRUE, results='hide', warning=FALSE, message=FALSE}
-# load data
-election_results_df <- read.csv(paste0('https://raw.githubusercontent.com/zachalexander/',
-                        'data_606_cunysps/master/ProjectProposal/county_level_votes.csv'))
-
-education_data_df <- read.csv(paste0('https://raw.githubusercontent.com/zachalexander/',
-                        'data_606_cunysps/master/ProjectProposal/education_data_fip.csv'))
-```
 
 In order to prepare the data for analysis, I had to do a bit of tidying by selecting the relevant columns from the raw datasets and recoding some of the education and ruralness data from numeric to categorical variables. By using `ifelse` statements and the `tidyverse` package I was able to accomplish this:  
 ```{r}
 # The dataset has many columns, I'm subsetting down to only columns of interest
 election_results_df <- election_results_df %>% 
-  select(combined_fips, county_name, state_abbr, per_dem, per_gop)
-
+  dplyr::select(combined_fips, county_name, state_abbr, per_dem, per_gop)
 ```
 
 ```{r}
 # I'm taking the rural/urban continuum codes and creating a separate variable 
 # with the qualitative values
 education_data_df <- education_data_df %>% 
-  select(fips, lesscollege_pct, ruralurban_cc) %>% 
+  dplyr::select(fips, lesscollege_pct, ruralurban_cc) %>% 
   mutate(ruralurban_grp = ifelse(ruralurban_cc == 1, 
   "Counties in metro areas of 1 million population or more", 
   ifelse(ruralurban_cc == 2, 
@@ -96,21 +92,23 @@ election_education_df <- merge(election_results_df, education_data_df,
                                by.x = "combined_fips", by.y = "fips" ) %>%
   mutate(college_or_more_pct = ((100 - lesscollege_pct)/ 100), 
          party_winner = ifelse(per_gop > per_dem, 'Republican', 'Democrat')) %>% 
-  select(combined_fips:per_gop, college_or_more_pct, party_winner, ruralurban_cc, 
+  dplyr::select(combined_fips:per_gop, college_or_more_pct, party_winner, ruralurban_cc, 
          ruralurban_grp)
 ```
+
+\pagebreak
 
 Here's a snapshot of some of the combined dataset, ready for analysis:  
 ```{r, echo=FALSE}
 snapshot <- election_education_df %>% 
-  select(combined_fips, county_name, state_abbr, per_gop, college_or_more_pct, ruralurban_grp)
+  dplyr::select(combined_fips, county_name, state_abbr, per_gop, college_or_more_pct, ruralurban_grp)
 
 kable(head(snapshot, n = 40L), format = "latex", booktabs = TRUE, align=rep('c', 20)) %>% 
   kable_styling(latex_options = "scale_down", position = "center")
 ```
 
 
-The education percentages were calculated by Stephen Pettigrew at Harvard University [Dataverse](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/MLLQDH). It appears that the percent with a college degree or more by county population are calculations based on a dataset created by [IPUMS NHGIS, University of Minnesota](https://www.nhgis.org/). The rural/urban continuum codes (ruralurban_cc) variable, was adopted from the [United States Department of Agriculture Economic Research Service](https://www.ers.usda.gov/data-products/rural-urban-continuum-codes/) in 2013. These variables were combined by Stephen Pettigrew into one dataset, which also stored other types of election data - outside the scope of this investigation.
+The education percentages were calculated by Stephen Pettigrew at Harvard University's [Dataverse](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/MLLQDH). It appears that the percent with a college degree or more by county population are calculations based on a dataset created by [IPUMS NHGIS, University of Minnesota](https://www.nhgis.org/). The rural/urban continuum codes (ruralurban_cc) variable, was adopted from the [United States Department of Agriculture Economic Research Service](https://www.ers.usda.gov/data-products/rural-urban-continuum-codes/) in 2013. These variables were combined by Stephen Pettigrew into one dataset, which also stored other types of election data - outside the scope of this investigation.
 
 
 ### Cases 
@@ -122,15 +120,17 @@ The cases are the number of counties in the United States (the id is FIPS code) 
 
 This is an observational study.
 
+\pagebreak
 
 ### Data Source 
 
 I found the dataset with 2016 election results on GitHub:  
 
-+ https://github.com/tonmcg/US_County_Level_Election_Results_08-16/blob/master/2016_US_County_Level_Presidential_Results.csv
++ [2016 Election Results](https://github.com/tonmcg/US_County_Level_Election_Results_08-16/blob/master/2016_US_County_Level_Presidential_Results.csv)
 
-I found the dataset with the education and ruralness data on GitHub as well: 
-+ https://github.com/MEDSL/2018-elections-unoffical/blob/master/election-context-2018.md
+I found the dataset with the education and ruralness data on GitHub as well:  
+
++ [Education & Ruralness Data](https://github.com/MEDSL/2018-elections-unoffical/blob/master/election-context-2018.md)
 
 Although this second dataset houses 2018 election data, I am only using the American Community Survey education data (5-year estimates).
 
@@ -147,7 +147,19 @@ My two independent variables are `college_or_more_pct` (quantitative) and `rural
 
 ### Scope of Inference -- generalizability
 
+Population of interest -- the individuals that voted for a presidential candidate in the 2016 election.  
 
+Because we are specifically looking at election data in this project, and whether or not someone votes is not completely random, we cannot generalize these findings to all voting-age individuals that were in the U.S. during the time of the 2016 presidential election. In this study, we'll merely be looking at differences within our population of voters and not attempting to generalize outside of this subset to all voting-age individuals that were in the U.S. during the time of the 2016 presidential election.
+
+Some areas of bias that would prevent generalizability to the broader voting-age population are:
+
++ Whether or not someone has access to a polling station
++ Whether or not someone has accurate information about where to go to vote
++ Whether or not someone is a justice-involved individual
++ Whether or not someone was intimidated or harrassed prior to voting
++ Whether or not someone was subjected to strict voter ID and ballot requirements
+
+And many other items. As you can see, many areas of bias would prohibit us from generalizing our findings to all voting-age individuals.
 
 ### Scope of Inference -- causality
 
@@ -161,7 +173,7 @@ Given that this is an observational study, and we are merely observing the data 
 ### Relevant summary statistics 
 
 
-First, I thought it would be interesting to just take a quick look at how many counties Donald Trump won in 2016:  
+First, I thought it would be interesting to take a quick look at how many counties Donald Trump won in 2016:  
 
 ```{r, echo=FALSE}
 num_counties_table <- table(election_education_df$party_winner)
@@ -171,14 +183,14 @@ kable(num_counties_table, format = "latex", booktabs = TRUE, align=rep('c', 20))
 ```
 
 
-  We can see that when solely looking at the vote proportions by county, Donald Trump won a much larger percentage of U.S. counties in 2016 (albeit, this doesn't take into account population size, just the number of counties). It was great to see that this split was confirmed [by the Associated Press](https://web.archive.org/web/20161207142233/http://bigstory.ap.org/article/fb5a5f7da21d460bbffb6985cb01cb2c/trending-story-clinton-won-just-57-counties-untrue) (helps to check my data merges and wrangling weren't prone to errors - the AP reports one extra "county" in Louisiana going to Donald Trump to make their count at 2626, but this extra "county" is a parish in Lousiana, so it's up for interpretation).  
+  We can see that when solely looking at the vote proportions by county, Donald Trump won a much larger percentage of U.S. counties in 2016 (albeit, this doesn't take into account population size, just the number of counties). It was great to see that this split was confirmed [by the Associated Press](https://web.archive.org/web/20161207142233/http://bigstory.ap.org/article/fb5a5f7da21d460bbffb6985cb01cb2c/trending-story-clinton-won-just-57-counties-untrue) (helps to check that my data merges and wrangling weren't prone to errors - the AP reports one extra "county" in Louisiana going to Donald Trump to make their count at 2626, but this extra "county" is a parish in Lousiana, so it's up for interpretation).  
 
 \pagebreak
 
 Then, I wanted to get a better sense of the data, so I decided to plot a histogram of the percent of each county's population that has a college degree or higher.  
 
 
-```{r, warning=FALSE, message=FALSE, echo=FALSE}
+```{r, warning=FALSE, message=FALSE, echo=FALSE, fig.height=3}
 ggplot(election_education_df, aes(x=college_or_more_pct)) + 
   geom_histogram() +
   ggtitle("Proportion with a College Degree or More by County (Histogram 1)") +
@@ -188,7 +200,7 @@ ggplot(election_education_df, aes(x=college_or_more_pct)) +
 education_table <- describeBy(election_education_df$college_or_more_pct)
 
 education_table <- education_table %>% 
-  select(vars, n, mean, sd, median, min, max, skew, kurtosis, se)
+  dplyr::select(vars, n, mean, sd, median, min, max, skew, kurtosis, se)
 
 kable(education_table, format = "latex", booktabs = TRUE, align=rep('c', 20)) %>% 
   kable_styling(latex_options = "scale_down", position = "center")
@@ -199,7 +211,7 @@ kable(education_table, format = "latex", booktabs = TRUE, align=rep('c', 20)) %>
 Next, I thought it would be helpful to plot a histogram of the percent of each county that voted for Donald Trump in 2016.  
 
 
-```{r, warning=FALSE, message=FALSE, echo=FALSE}
+```{r, warning=FALSE, message=FALSE, echo=FALSE, fig.height=3}
 ggplot(election_education_df, aes(x=per_gop), bins = 30) + 
   geom_histogram() +
   ggtitle("Percent Votes for Donald Trump by County (Histogram 2)") +
@@ -209,14 +221,14 @@ ggplot(election_education_df, aes(x=per_gop), bins = 30) +
 vote_gop_table <- describeBy(election_education_df$per_gop)
 
 vote_gop_table <- vote_gop_table %>% 
-  select(vars, n, mean, sd, median, min, max, skew, kurtosis, se)
+  dplyr::select(vars, n, mean, sd, median, min, max, skew, kurtosis, se)
 
 kable(vote_gop_table, format = "latex", booktabs = TRUE, align=rep('c', 20)) %>% 
   kable_styling(latex_options = "scale_down", position = "center")
 ```
 
 
-To take a look at my rural variable, I first thought it would be helpful to see some summary statistics related to my qualitative variable `ruralurban_grp`:
+To take a look at my rural variable, I first thought it would be helpful to see some summary statistics related to my qualitative variable `ruralurban_grp`, broken down by county:
 
 ```{r, echo=FALSE}
 rural_table1 <- describeBy(election_education_df$per_gop,
@@ -224,13 +236,13 @@ rural_table1 <- describeBy(election_education_df$per_gop,
            mat = TRUE)
 
 rural_table1 <- rural_table1 %>% 
-  select(group1, n, mean, sd, se)
+  dplyr::select(group1, n, mean, sd, se)
 
 kable(rural_table1, format = "latex", booktabs = TRUE, align=rep('c', 20)) %>% 
   kable_styling(latex_options = "scale_down", position = "center")
 ```
 
-I may be able to compare means across these 8 different groups, but I also thought it would be helpful to subset this data a bit more based on broader categories of ruralness. I decided to recode the ruralurban codes so that those that are characteristic of urban areas (`ruralurban_cc` = 1 - 3) would be grouped together, those characteristic of rural areas (`ruralurban_cc` = 7 - 9) would be grouped together, and those characteristic of suburban areas (`ruralurban_cc` = 4 - 6) would be grouped together. This'll hopefully make mean comparisons easier later on! I saved these recodes in a new variable called `ruralurban_grp_3_way`. 
+I may be able to compare means across these 8 different groups, but I also thought it would be helpful to subset this data a bit more based on broader categories of ruralness. I decided to recode the ruralurban codes so that those that are characteristic of urban areas (`ruralurban_cc` = 1 - 3) would be grouped together, those characteristic of rural areas (`ruralurban_cc` = 7 - 9) would be grouped together, and those characteristic of suburban areas (`ruralurban_cc` = 4 - 6) would be grouped together. This'll hopefully make mean comparisons easier later on. I saved these recodes in a new variable called `ruralurban_grp_3_way`. 
 
 ```{r}
 # recoding the ruralurban_grp and ruralurban_cc variable into a 3_way grouping variable
@@ -242,7 +254,7 @@ election_education_df$ruralurban_grp_3_way <- ifelse(
 ```
 
 
-After this was set up, I could then look at summary statistics of the `per_gop` variable:  
+After this was set up, I could then look at summary statistics of the `per_gop` variable, based on these new ruralness types:  
 ```{r, echo=FALSE}
 # summary statistics of the percent voting for Donald Trump split by ruralness
 percent_vote_table_fnl <- describeBy(election_education_df$per_gop,
@@ -250,7 +262,7 @@ percent_vote_table_fnl <- describeBy(election_education_df$per_gop,
            mat = TRUE)
 
 percent_vote_table_fnl <- percent_vote_table_fnl %>%  
-  select(group1, n, mean, sd, median, min, max, skew, kurtosis, se)
+  dplyr::select(group1, n, mean, sd, median, min, max, skew, kurtosis, se)
 
 kable(percent_vote_table_fnl, format = "latex", booktabs = TRUE, align=rep('c', 20)) %>% 
   kable_styling(latex_options = "scale_down", position = "center")
@@ -266,16 +278,16 @@ education_table_fnl <- describeBy(election_education_df$college_or_more_pct,
            mat = TRUE)
 
 education_table_fnl <- education_table_fnl %>% 
-  select(group1, n, mean, sd, median, min, max, skew, kurtosis, se)
+  dplyr::select(group1, n, mean, sd, median, min, max, skew, kurtosis, se)
 
 kable(education_table_fnl, format = "latex", booktabs = TRUE, align=rep('c', 20)) %>% 
   kable_styling(latex_options = "scale_down", position = "center")
 ```
 
 
-Finally, I thought it would be interesting to plot these two tables as box plots. See below for the box plot of the of per_gop split by ruralness (3-way):  
+Here are these two tables as box plots. See below for the box plot of the of per_gop split by ruralness (3-way):  
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.height=4}
 boxplot(per_gop~ruralurban_grp_3_way,data=election_education_df, 
    col = c("#ffb3b3", "#c6ecc6", "#b3d9ff"),
    main="Proportion voting for Donald Trump (Boxplot 1)",
@@ -285,7 +297,7 @@ boxplot(per_gop~ruralurban_grp_3_way,data=election_education_df,
 
 
 And, here is a boxplot for percent with a bachelor's degree or higher by ruralness (3-way).  
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.height=4}
 boxplot(college_or_more_pct~ruralurban_grp_3_way,data=election_education_df, 
    col = c("#ffb3b3", "#c6ecc6", "#b3d9ff"),
    main="Proportion with a college degree or higher (Boxplot 2)",
@@ -295,9 +307,9 @@ boxplot(college_or_more_pct~ruralurban_grp_3_way,data=election_education_df,
 
 Although this second boxplot is a bit outside the scope of the research question, I thought it would be interesting to see if there are any noticeable differences in educational attainment across the ruralness continuum as well to build a bit more context.  
 
-Finally, we'll look at the relationship between the percent votes for Donald Trump per county in 2016, and the percent with a college degree or more:
+Finally, we'll look at the relationship between the percent votes for Donald Trump per county in 2016, and the percent with a college degree or more:  \newline
 
-```{r, message=FALSE, warning=FALSE, echo=FALSE}
+```{r, message=FALSE, warning=FALSE, echo=FALSE, fig.height=3}
 ggplot(election_education_df, aes(college_or_more_pct, per_gop)) +
   geom_point() +
   xlab("Percent with at least a college a degree") +
@@ -306,14 +318,18 @@ ggplot(election_education_df, aes(college_or_more_pct, per_gop)) +
 ```
 
 
+\pagebreak
 
 ![](C:\Users\zalexander\Desktop\data606_cunysps\data_606_cunysps\ProjectProposal\trump_counties.png)
+
+
+\pagebreak
 
 ### Summary of Exploratory Analysis
 
 From the exploratory data analysis we can see the following:  
 
-+ It appears that the percentage of individuals that voted with a college degree or more has a right-skewed, unimodal distribution. We can see that a majority of counties have around 20% of their voting population identify as having a college degree or more -- in other words, 1 in 5 voters in each county tended to be college-educated in 2016 (Histogram 1). 
++ It appears that the percentage of individuals that voted with a college degree or more has a right-skewed, unimodal distribution. We can see that a majority of counties have around 20% of their voting population identify as having a college degree or more -- in other words, for a majority of counties, 1 in 5 voters tended to be college-educated in 2016 (Histogram 1). 
 
 + It also appears that a majority of counties voted for Donald Trump in 2016 (Figure 1). From our distribution, it appears to be left-skewed, with a majority of counties with an electorate that had a vote share for Donald Trump around 75% -- meaning he won big on a *county* level. As a reminder, this does not take into consideration population size or the number of votes, but just the proportion of Trump voters per county (Histogram 2). 
 
@@ -331,18 +347,18 @@ Now that we've taken a look at some of the summary statistics, and are starting 
 
 **Analysis of County Type and Percent of Trump Voters**
 
-To run some tests on our 3-way ruralness variable (`ruralurban_grp_3_way`), we'll be using Analysis of Variance (ANOVA). There are three conditions that need to be checked before running an ANOVA.
+To run some tests on our 3-way ruralness variable (`ruralurban_grp_3_way`), we'll be using Analysis of Variance (ANOVA) to compare means. There are three conditions that need to be checked before running an ANOVA.
 
 * All observations must be independent.
-    + The election and ruralness data were not sampled, however, there is not an obvious reason why independence of observations would not hold for most or all of the values in the dataset.  **This is satisfied.**
+    + The election and ruralness data were not sampled, however, there is not an obvious reason why independence of observations would not hold for most or all of the values in the dataset.  **This condition is met.**
 * The data in each group must be nearly normal.
-    + Given the large sample size for each group, we should be fine, but in order to be safe I removed a some outliers from the full dataset in order to ensure that each group was approaching a normal distribution. In total, I removed 189 counties from the dataset. **This is satisfied.**
+    + Given the large sample size for each group, we should be fine, but in order to be safe I removed a few outliers from the full dataset in order to ensure that each group was approaching a normal distribution. In total, I removed 189 counties from the dataset. **This is satisfied.**
 * The variance within each group must be approximately equal.
     + We can see from the side-by-side plot below that there is approximately equal variance across groups. **This is satisfied.**  
     
 
 
-```{r, message=FALSE, warning=FALSE, echo=FALSE}
+```{r, message=FALSE, warning=FALSE, echo=FALSE, fig.height=2}
 ggplot(election_education_df, aes(x=per_gop), bins = 30) + 
   geom_histogram() +
   ggtitle("Before Removing Outliers") +
@@ -363,7 +379,7 @@ ggplot(election_education_df_rmoutliers, aes(x=per_gop), bins = 30) +
 ```
 
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.height=3}
 ggplot(data=election_education_df_rmoutliers, aes(x=ruralurban_grp_3_way, 
                                                  y=per_gop, color=ruralurban_grp_3_way)) +
   geom_point(position=position_dodge(width=0.3)) +
@@ -399,16 +415,13 @@ Now, although this shows that there is a difference in mean values across our ru
 TukeyHSD(aov1)
 ```
 
-After running the post-hoc analysis, we can see that all three groups have signficantly different means from one another. The p-adjusted value for each group is less than 0.001 (which is less than 0.05) given our 95% confidence level.  
-
-
-
+After running the post-hoc analysis, we can see that all three groups have signficantly different means from one another. The p-adjusted value for each group is less than 0.001 (which is less than 0.05) given our 95% confidence level.  \newline
 
 **Analysis of Educational Attainment Level and Percent of Trump Voters**  
 
 When we fit a least squares line to our plot from earlier that examines the relationship between educational attainment and the percent of GOP votes per county, there is a negative correlation between these two variables. In other words, as the percent of individuals in a given county with a college degree or more increases, the percent of GOP votes in a given county decreases.  
 
-```{r, message=FALSE, warning=FALSE, echo=FALSE}
+```{r, message=FALSE, warning=FALSE, echo=FALSE, fig.height=4}
 ggplot(election_education_df, aes(college_or_more_pct, per_gop)) +
   geom_point() +
   geom_smooth(method = lm) +
@@ -420,16 +433,16 @@ regression1 <- lm(per_gop ~ college_or_more_pct, data = election_education_df)
 summary(regression1)
 ```
 
-From the summary of the regression, we can see that the p-value is less than 0.001 (which is less than 0.05), meaning that the slope of the least squares line is not equal to zero. Additionally, we can see that there is an adjusted $R^2$ value equal to 0.2361, indicating that the amount of variation in the percent of votes for Trump in a given county in the 2016 election that can be explained by the percent of individuals in a given county with a college degree or more is around 24%.
+From the summary of the regression, we can see that the p-value is less than 0.001 (which is less than 0.05), meaning that the slope of the least squares line is not equal to zero. Additionally, we can see that there is an adjusted $R^2$ value equal to 0.2361, indicating that the amount of variation in the percent of votes for Trump in a given county in the 2016 election that can be explained by the percent of individuals in a given county with a college degree or more is around 24%. \newline
 
 ### Predictability of Educational Attainment and Ruralness in the Proportion of GOP Votes per county in the 2016 election
 
-The summary from our regression model in the previous section also contains values to create a linear regression equation that we can use to predict the percent of votes for Trump in the 2016 election given then percentage of individuals with a college degree or more for a given county:  
+The summary from our regression model in the previous section also contains values to create a linear regression equation that we can use to predict the percent of votes for Trump in the 2016 election given the percentage of individuals with a college degree or more for a given county:  
 
 $\hat{PercVotesGOP} = 0.809042 + (-0.831090 \space \times$ `college_or_more_pct`$)$
 
 Although this may seem valuable, if we were to run a prediction for each county using this linear regression equation, we'd find that our residuals would be quite high. To test this, I ran this calculation on the dataset and have plotted the residual values by county on the map below:  
-```{r, echo=FALSE, fig.height=10, fig.width=10, fig.align="center", warning=FALSE, message=FALSE}
+```{r, echo=FALSE, fig.height=7, fig.width=10, fig.align="center", warning=FALSE, message=FALSE}
 library(sf)
 library(maps)
 library(RColorBrewer)
@@ -471,7 +484,7 @@ ggplot() +
 ```
 
 
-```{r, message=FALSE, warning=FALSE, echo=FALSE}
+```{r, message=FALSE, warning=FALSE, echo=FALSE, fig.height=3}
 ggplot(county_fnl_shp, aes(x=residuals)) + 
   geom_histogram() +
   ggtitle("Alternative plot of residuals") +
@@ -490,7 +503,7 @@ county_fnl_shp <- county_fnl_shp %>%
   mutate(county_urban = ifelse(ruralurban_grp_3_way == 'Urban Counties', 1, 0)) 
 
 county_rural_show <- as.data.frame(county_fnl_shp) %>% 
-  select(county_name, state_abbr, ruralurban_grp_3_way, county_rural, county_suburban,
+  dplyr::select(county_name, state_abbr, ruralurban_grp_3_way, county_rural, county_suburban,
          county_urban)
 
 kable(head(county_rural_show, n = 15L), format = "latex", booktabs = TRUE, 
@@ -499,27 +512,32 @@ kable(head(county_rural_show, n = 15L), format = "latex", booktabs = TRUE,
 ```
 
 
-Although I found out later that R creates dummy variables automatically if adding in a categorical value, I wanted to make sure I tested this assumption. You can see below two identical outputs of my regression model, one using my created dummy variables, the other generated from R directly using my `ruralurban_grp_3_way` categorical variable.
+Although I found out later that R creates dummy variables automatically if adding in a categorical value to a regression model, I wanted to make sure I tested this assumption. You can see below two identical outputs of my regression model, one using my created dummy variables, the other generated from R directly using my `ruralurban_grp_3_way` categorical variable.
 ```{r}
 regression2 <- lm(formula = per_gop ~ college_or_more_pct + county_suburban + county_urban,
                   data = county_fnl_shp)
 summary(regression2)
 
+```
+
+
+```{r}
 regression3 <- lm(formula = per_gop ~ college_or_more_pct + ruralurban_grp_3_way, 
                   data = county_fnl_shp)
 
 summary(regression3)
 ```
 
-As we can see here, adding in the ruralness variable improved our $R^2$ value slightly, from 0.2361 to 0.2603. Now, before we can interpret the model, we need to check some of the model diagnostics and conditions.
+As we can see here, adding in the ruralness variable improved our $R^2$ value slightly, from 0.2361 to 0.2603. Now, before we can interpret the model, we need to check some of the model diagnostics and conditions.  \newline
 
-**Model Diagnostics - Checking Conditions**  
 
-```{r}
-summary(regression2$residuals)
-```
+**Model Diagnostics - Checking Conditions**  \newline
 
-```{r, message=FALSE, warning=FALSE}
+**1. Nearly normal residuals**
+
++ The first condition we'll need to check is whether or not the residuals of the model are nearly normal:
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE, fig.height=3}
 ggplot(regression2, aes(x=residuals(regression2)), bins = 50) + 
   geom_histogram() +
   ggtitle("Histogram of Residuals") +
@@ -527,37 +545,140 @@ ggplot(regression2, aes(x=residuals(regression2)), bins = 50) +
 
 ```
 
-```{r}
+As we can see from the above plot, the residuals do appear to be nearly normal. Although it looks slightly left skewed, the data set is quite large which makes this condition a little less substantial. **This condition is met.**  \newline
+
+**2. Nearly constant variability of residuals**  
+
++ The next condition we'll need to check is whether or not the variability of the residuals is nearly constant. To check this, we can use the `plot` function in R and utilize the Scale-Location plot:
+
+```{r, echo=FALSE, fig.height=4}
 plot(regression2, which = 3)
 ```
+
+From the plot above, it appears that the red line through the center of the plot is not very horizontal and flat -- which would indicate that the variability is not nearly constant. We'll run another test from the `car` package, the `ncvTest`, to test whether or not there is "non-constant variance" in the residuals:
 
 ```{r, message=FALSE, warning=FALSE}
 library(car)
 ncvTest(regression2)
 ```
 
-**Box-Cox Transformation**
+Unfortunately, the null hypothesis for this test is that the variance of the residuals *is* constant. We can see from our test that the p-value is less than 0.05, indicating that there *is not constant variability of residuals*. **This condition is NOT met**.  \newline
+
+
+**3. Residuals are independent**  
+
++ The next condition to test is whether or not the residuals are independent. Given that these election results were happening all at one time (individuals were going to their polling stations and casting their votes on the same day and roughly around the same time), it is difficult to think of a logical reason as to why these residuals would not be independent from one another. **This condition is met**.  \newline
+
+**4. Each variable is linearly related to the outcome**  
+
++ Finally, we'll need to test whether or not each variable is linearly related to the outcome. To test this, we can create individual plots of each variable against the `per_gop` variable to ensure that there is a linear relationship.
+
+A great tool to investigate this, is to use the `crPlots()` function in the `car` package to show component residual plots of our predictors. These types of plots attempt to model the residuals of one predictor against the dependent variable and adds a line indicating where the line of best fit lies. If we can visibly see a significant divergence between the residual line (pink) and the component line (blue), then we can see that the predictor does not have a linear relationship with the dependent variable -- in our case `per_gop`. We can see these plots below with our latest regression model:  
+
 ```{r, message=FALSE, warning=FALSE}
-library(caret)
-transformed_data <- BoxCoxTrans(county_fnl_shp$per_gop)
-print(transformed_data)
-```
-```{r}
-library(MASS)
-
-bc <- boxcox(county_fnl_shp$per_gop ~ county_fnl_shp$college_or_more_pct + 
-               county_fnl_shp$ruralurban_grp_3_way)
-transformation <- bc$x[which.max(bc$y)]
-new_model <- lm(((per_gop^transformation-1)/transformation) ~ college_or_more_pct + 
-                  ruralurban_grp_3_way, data = county_fnl_shp)
-summary(new_model)
-plot(new_model, which = 3)
+library(car)
+crPlots(regression2)
 ```
 
+As we can see, it looks like our ruralness variable residuals seem to map onto the best fit line pretty well. However, the educational attainment variable (`college_or_more_pct`) residuals seem to drastically diverge from the best fit line. **This condition is NOT met.** \newline
+
+**Attempts at adjusting the model**  
+
+In summary, it looks like two of our conditions out of the four for multiple regression are not met. Although the $R^2$ value is quite low, and we wouldn't be able to utilize this latest model as a valid predictive tool, I did want to try to adjust the model a bit to see if I could resolve some of the conditions that were not met above. 
+
+One way to do this would be to perform a transformation on the predictors. Based on my work above, I already know that my `college_or_more_pct` distribution is significantly right skewed. As an attempt to make this more of a normal distribution, I'll transform the values from $x$ to $log(x)$.
 
 
+```{r, warning=FALSE, message=FALSE, fig.height=3, echo=FALSE}
+county_fnl_shp <- county_fnl_shp %>% 
+  mutate(transform = log(college_or_more_pct))
+
+before_transform <- ggplot(county_fnl_shp, aes(x=college_or_more_pct), bins = 30) + 
+  geom_histogram() +
+  ggtitle("Before log transformation") +
+  xlab("Percent with a College Degree or More") +
+  ylab("Number of U.S. Counties")
+
+after_transform <- ggplot(county_fnl_shp, aes(x=transform), bins = 30) + 
+  geom_histogram() +
+  ggtitle("After log transformation") +
+  xlab("Percent with a College Degree or More (log transformed)") +
+  ylab("Number of U.S. Counties")
+
+before_transform
+after_transform
+```
+
+Now that the education variable is transformed, and shows a much more normal distribution, let's insert it back into our model to see if it has an impact:  
+
+```{r, echo=FALSE}
+lm_fit<-lm(formula = per_gop ~ transform + county_suburban + county_urban,
+                  data = county_fnl_shp)
+summary(lm_fit)
+```
+It appears to have affected our $R^2$ value slightly. Let's see if it helped resolve our heteroscedasticity issue (condition 2):  
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+ncvTest(lm_fit)
+```
+It did improve our p-value slightly, from 0.006 to 0.008. However, we still cannot reject the null hypothesis that variability of the residuals is nearly constant since it is less than 0.05.  
+
+Additionally, when we look at the component residuals plot, we actually see it is worse (`transform`) -- the new `college_or_more_pct` variable. I'm assuming that the log transformation made our residual line deviate even more from the best fit line.
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+crPlots(lm_fit)
+```
+
+
+\pagebreak
+
+***
+
+
+## V. CONCLUSION & FUTURE RESEARCH
+
+**Conclusion** \newline
+
+After working through a pretty extensive analysis of the relationship between the `per_gop` variable and the `college_or_more_pct` and `ruralurban_grp_3_way` variable, looking at educational attainment and ruralness respectively and their impact on the proportion of Trump votes in the 2016 election, we can circle back to our research questions:
+
+> Was there a significant difference in the mean proportion of GOP votes by county in the 2016 presidential election based on county type (Rural, Suburban, or Urban)?
+
++ When we ran an Analysis of Variance (ANOVA), utilizing a 95% confidence interval, we found that there were significant differences in the mean proportion of voters that voted for GOP candidate Donald Trump when testing across the ruralness continuum (Rural, Suburban, Urban) in the 2016 election. 
+
++ After running post-hoc analysis, it is confirmed that there was a significantly higher mean proportion of voters that voted for Donald Trump in rural counties compared to the mean proportion that voted for Donald Trump in suburban counties and urban counties in the 2016 election.  
+
++ Additionally, a significantly higher mean proportion of voters voted for Donald Trump in suburban counties than the mean proportion of voters that voted for him in urban counties.  
+
+As we are already seeing in the lead up to the 2020 election, votes in more rural counties will be highly contested and the Democratic party will seek to regain votes that they lost in the 2016 election. As campaign managers spend money on advertisements and events in places like Iowa and the Midwest -- typically more rural areas -- they are likely understanding these factors that rural/suburban votes are crucial and need to be won back in this upcoming election.
+
+> Is educational attainment and/or ruralness predictive of the proportion of GOP votes by county in the 2016 presidential election?
+
++ After initially running a linear regression to see if educational attainment (`college_or_more_pct`) had a linear relationship with the proportion of GOP votes by county in the 2016 election, we could see that this was the case when we added a least squares line. The $R^2$ value was quite low, at roughly 0.24. There is an argument to be made that educational attainment alone was predictive of the proportion of GOP votes by county in the 2016 election, given that roughly 24% of variation in the percent of votes for Donald Trump in a given county in the 2016 election could be explained by the percent of individuals with a college degree or higher for that county.  
+
++ This is also the case when we added ruralness to the regression model. The $R^2$ value increased slightly, indicating that roughly an added 2% of variation in the percent of votes for Donald Trump in a given county in the 2016 election could be explained by the combination of the education variable and the ruralness variable.
+
++ However, when checking the model diagnostics, a few conditions were not able to be met. It appeared that there wasn't nearly constant variability of residuals and it is debateable whether or not each variable, specifically the education variable, was linearly related to the outcome.
+
+Overall, I'd say that both of these factors did show some level of predictive capacity during the analysis. However, I'd caution against using the education variable until it is better known what relationship it has with the proportion of GOP votes by county in the 2016 election (i.e. is it a linear relationship?, non-linear relationship?, etc.).
+
+Predictive models are often built to forecast elections, and utilizing types of variables such as the ones in this project are quite common. However, in the case of the regression model that was created, we'd need to incorporate more variables and data to increase the predictive capacity before comfortably using it as a predictive tool. With an $R^2$ value around 0.26, we'd have to boost this value by at least 0.50 in order to make respectable predictions of the proportion of votes for Donald Trump in the 2016 election by county. \newline  
+
+
+**Future Research**
+
+There are many ways that this project can be extended. Namely, continuing to add variables to the model in order to increase its predictive capacity. Some variables that could be added are those from the Census around the time of the election. Adding in variables such as median household income, age, race/ethnicity breakdowns, employment information, etc. by county could really help the predictive capacity since it'll likely subset the data more and allow the model to utilize more nuanced information for its predictions.
+
+Additionally, it would be helpful to narrow in on why there was not constant variability of the residuals of the model. 
 
 
 ***
 
-## V. CONCLUSION & FUTURE RESEARCH
+## REFERENCES
+
++ [OpenIntro Statistics](https://github.com/jbryer/DATA606Fall2019/blob/master/Textbook/os4.pdf?raw=true)
+    + Particularly, chapter 7 (ANOVA), chapter 8, and chapter 9 (Regression)
+  
++ [Regression Diagnostics](https://www.statmethods.net/stats/rdiagnostics.html) 
+
++ [Regression Diagnostics](http://www.vikparuchuri.com/blog/r-regression-diagnostics-part-1/)
+
++ [Creating Dummy Variables](https://stats.idre.ucla.edu/spss/faq/coding-systems-for-categorical-variables-in-regression-analysis-2/)

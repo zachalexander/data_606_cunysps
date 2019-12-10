@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex 2019.9.6)  9 DEC 2019 20:44
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex 2019.9.6)  10 DEC 2019 15:28
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -483,7 +483,7 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 \Hy@SectionHShift=\skip46
 )
-Package hyperref Info: Option `unicode' set `true' on input line 30.
+Package hyperref Info: Option `unicode' set `true' on input line 34.
 
 (c:/Users/zalexander/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/puen
 c.def
@@ -491,7 +491,8 @@ File: puenc.def 2019/06/12 v6.88h Hyperref: PDF Unicode definition (HO)
 Now handling font encoding PU ...
 ... no UTF-8 mapping file for font encoding PU
 )
-Package hyperref Info: Option `breaklinks' set `true' on input line 30.
+Package hyperref Info: Option `colorlinks' set `true' on input line 34.
+Package hyperref Info: Option `breaklinks' set `true' on input line 34.
 
 (c:/Users/zalexander/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/colo
 r.sty
@@ -506,6 +507,10 @@ Package color Info: Driver file: pdftex.def on input line 147.
 (c:/Users/zalexander/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics-def/
 pdftex.def
 File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
+)
+(c:/Users/zalexander/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/dvip
+snam.def
+File: dvipsnam.def 2016/06/17 v3.0m Driver-dependent file (DPC,SPQR)
 ))
 (c:/Users/zalexander/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/fancyvrb/fanc
 yvrb.sty
@@ -751,32 +756,32 @@ Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
 ) (./Alexander_finalproject.aux)
 \openout1 = `Alexander_finalproject.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 141.
-LaTeX Font Info:    ... okay on input line 141.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 141.
-LaTeX Font Info:    ... okay on input line 141.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 141.
-LaTeX Font Info:    ... okay on input line 141.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 141.
-LaTeX Font Info:    ... okay on input line 141.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 141.
-LaTeX Font Info:    ... okay on input line 141.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 141.
-LaTeX Font Info:    ... okay on input line 141.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 141.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 141.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 145.
+LaTeX Font Info:    ... okay on input line 145.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 145.
+LaTeX Font Info:    ... okay on input line 145.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 145.
+LaTeX Font Info:    ... okay on input line 145.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 145.
+LaTeX Font Info:    ... okay on input line 145.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 145.
+LaTeX Font Info:    ... okay on input line 145.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 145.
+LaTeX Font Info:    ... okay on input line 145.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 145.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 145.
 
 
 (c:/Users/zalexander/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/ts1cmr.f
 d
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 141.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 141.
-LaTeX Font Info:    ... okay on input line 141.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 141.
-LaTeX Font Info:    ... okay on input line 141.
-LaTeX Font Info:    Try loading font information for T1+lmr on input line 141.
+LaTeX Font Info:    ... okay on input line 145.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 145.
+LaTeX Font Info:    ... okay on input line 145.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 145.
+LaTeX Font Info:    ... okay on input line 145.
+LaTeX Font Info:    Try loading font information for T1+lmr on input line 145.
 (c:/Users/zalexander/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/t1lmr.fd
 File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
@@ -815,7 +820,7 @@ File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 \AtBeginShipoutBox=\box48
-Package hyperref Info: Link coloring OFF on input line 141.
+Package hyperref Info: Link coloring ON on input line 145.
 
 (c:/Users/zalexander/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/name
 ref.sty
@@ -827,9 +832,9 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count137
 )
-LaTeX Info: Redefining \ref on input line 141.
-LaTeX Info: Redefining \pageref on input line 141.
-LaTeX Info: Redefining \nameref on input line 141.
+LaTeX Info: Redefining \ref on input line 145.
+LaTeX Info: Redefining \pageref on input line 145.
+LaTeX Info: Redefining \nameref on input line 145.
 (./Alexander_finalproject.out) (./Alexander_finalproject.out)
 \@outlinefile=\write4
 \openout4 = `Alexander_finalproject.out'.
@@ -855,433 +860,430 @@ pstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-
-Package xcolor Warning: Incompatible color definition on input line 196.
-
-LaTeX Font Info:    Try loading font information for T1+lmtt on input line 197.
+LaTeX Font Info:    Try loading font information for T1+lmtt on input line 201.
 
 (c:/Users/zalexander/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 198.
 
-Package xcolor Warning: Incompatible color definition on input line 205.
+Package xcolor Warning: Incompatible color definition on input line 204.
 
-
-Package xcolor Warning: Incompatible color definition on input line 205.
-
-
-Package xcolor Warning: Incompatible color definition on input line 210.
-
-LaTeX Font Info:    Try loading font information for TS1+lmtt on input line 213
+LaTeX Font Info:    Try loading font information for TS1+lmtt on input line 206
 .
 
 (c:/Users/zalexander/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ts1lmtt.fd
 File: ts1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
-) [1
+)
+LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 207.
+
+Package xcolor Warning: Incompatible color definition on input line 210.
+
+
+Package xcolor Warning: Incompatible color definition on input line 210.
+
+
+Package xcolor Warning: Incompatible color definition on input line 212.
+
+
+Package xcolor Warning: Incompatible color definition on input line 238.
+
+
+Package xcolor Warning: Incompatible color definition on input line 238.
+
+
+Package xcolor Warning: Incompatible color definition on input line 238.
+
+[1
 
 {c:/Users/zalexander/AppData/Roaming/TinyTeX/texmf-var/fonts/map/pdftex/updmap/
 pdftex.map}]
 
-Package xcolor Warning: Incompatible color definition on input line 219.
+Package xcolor Warning: Incompatible color definition on input line 238.
 
 
-Package xcolor Warning: Incompatible color definition on input line 219.
+Package xcolor Warning: Incompatible color definition on input line 238.
 
 
-Package xcolor Warning: Incompatible color definition on input line 227.
+Package xcolor Warning: Incompatible color definition on input line 244.
 
 
-Package xcolor Warning: Incompatible color definition on input line 233.
+Package xcolor Warning: Incompatible color definition on input line 258.
 
 
-Package xcolor Warning: Incompatible color definition on input line 233.
+Package xcolor Warning: Incompatible color definition on input line 258.
 
-
-Package xcolor Warning: Incompatible color definition on input line 235.
-
-
-Package xcolor Warning: Incompatible color definition on input line 261.
-
-
-Package xcolor Warning: Incompatible color definition on input line 261.
-
-
-Package xcolor Warning: Incompatible color definition on input line 267.
-
-
-Package xcolor Warning: Incompatible color definition on input line 281.
-
-
-Package xcolor Warning: Incompatible color definition on input line 281.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 283--284
+[2]
+Underfull \hbox (badness 10000) in paragraph at lines 262--263
 
  []
 
-[2]
-LaTeX Font Info:    Try loading font information for OT1+lmr on input line 340.
+LaTeX Font Info:    Try loading font information for OT1+lmr on input line 319.
 
 (c:/Users/zalexander/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OML+lmm on input line 340.
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 319.
 
 (c:/Users/zalexander/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 340
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 319
 .
 
 (c:/Users/zalexander/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMX+lmex on input line 340
+LaTeX Font Info:    Try loading font information for OMX+lmex on input line 319
 .
 
 (c:/Users/zalexander/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 340.
+(Font)              <10> on input line 319.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 340.
+(Font)              <7> on input line 319.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 340.
-LaTeX Font Info:    Try loading font information for U+msa on input line 340.
+(Font)              <5> on input line 319.
+LaTeX Font Info:    Try loading font information for U+msa on input line 319.
 
 (c:/Users/zalexander/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/umsa
 .fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 340.
+LaTeX Font Info:    Try loading font information for U+msb on input line 319.
 
 (c:/Users/zalexander/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb
 .fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [3]
-LaTeX Font Info:    Try loading font information for TS1+lmr on input line 378.
+LaTeX Font Info:    Try loading font information for TS1+lmr on input line 359.
 
 (c:/Users/zalexander/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
-Underfull \hbox (badness 10000) in paragraph at lines 378--379
-[][]$\T1/lmr/m/n/10 https : / / github . com / tonmcg / US _ County _ Level _ E
-lection _ Results _ 08-[]16 / blob / master / 2016 _ US _
- []
-
-[4]
-<Alexander_finalproject_files/figure-latex/unnamed-chunk-7-1.pdf, id=115, 469.7
-55pt x 325.215pt>
+) [4] [5]
+<Alexander_finalproject_files/figure-latex/unnamed-chunk-7-1.pdf, id=121, 469.7
+55pt x 216.81pt>
 File: Alexander_finalproject_files/figure-latex/unnamed-chunk-7-1.pdf Graphic f
 ile (type pdf)
 <use Alexander_finalproject_files/figure-latex/unnamed-chunk-7-1.pdf>
 Package pdftex.def Info: Alexander_finalproject_files/figure-latex/unnamed-chun
-k-7-1.pdf  used on input line 448.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<Alexander_finalproject_files/figure-latex/unnamed-chunk-8-1.pdf, id=116, 469.7
-55pt x 325.215pt>
+k-7-1.pdf  used on input line 470.
+(pdftex.def)             Requested size: 469.75386pt x 216.80946pt.
+<Alexander_finalproject_files/figure-latex/unnamed-chunk-8-1.pdf, id=122, 469.7
+55pt x 216.81pt>
 File: Alexander_finalproject_files/figure-latex/unnamed-chunk-8-1.pdf Graphic f
 ile (type pdf)
 <use Alexander_finalproject_files/figure-latex/unnamed-chunk-8-1.pdf>
 Package pdftex.def Info: Alexander_finalproject_files/figure-latex/unnamed-chun
-k-8-1.pdf  used on input line 465.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-[5 <./Alexander_finalproject_files/figure-latex/unnamed-chunk-7-1.pdf>]
+k-8-1.pdf  used on input line 487.
+(pdftex.def)             Requested size: 469.75386pt x 216.80946pt.
+[6 <./Alexander_finalproject_files/figure-latex/unnamed-chunk-7-1.pdf> <./Alexa
+nder_finalproject_files/figure-latex/unnamed-chunk-8-1.pdf>]
 
-Package xcolor Warning: Incompatible color definition on input line 514.
-
-[6 <./Alexander_finalproject_files/figure-latex/unnamed-chunk-8-1.pdf>]
-
-Package xcolor Warning: Incompatible color definition on input line 523.
+Package xcolor Warning: Incompatible color definition on input line 536.
 
 
-Package xcolor Warning: Incompatible color definition on input line 523.
+Package xcolor Warning: Incompatible color definition on input line 545.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 525--527
+Package xcolor Warning: Incompatible color definition on input line 545.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 547--549
 
  []
 
-<Alexander_finalproject_files/figure-latex/unnamed-chunk-13-1.pdf, id=135, 469.
-755pt x 325.215pt>
+<Alexander_finalproject_files/figure-latex/unnamed-chunk-13-1.pdf, id=137, 469.
+755pt x 289.08pt>
 File: Alexander_finalproject_files/figure-latex/unnamed-chunk-13-1.pdf Graphic 
 file (type pdf)
 <use Alexander_finalproject_files/figure-latex/unnamed-chunk-13-1.pdf>
 Package pdftex.def Info: Alexander_finalproject_files/figure-latex/unnamed-chun
-k-13-1.pdf  used on input line 563.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<Alexander_finalproject_files/figure-latex/unnamed-chunk-14-1.pdf, id=136, 469.
-755pt x 325.215pt>
+k-13-1.pdf  used on input line 584.
+(pdftex.def)             Requested size: 469.75386pt x 289.07928pt.
+[7]
+<Alexander_finalproject_files/figure-latex/unnamed-chunk-14-1.pdf, id=143, 469.
+755pt x 289.08pt>
 File: Alexander_finalproject_files/figure-latex/unnamed-chunk-14-1.pdf Graphic 
 file (type pdf)
 <use Alexander_finalproject_files/figure-latex/unnamed-chunk-14-1.pdf>
 Package pdftex.def Info: Alexander_finalproject_files/figure-latex/unnamed-chun
-k-14-1.pdf  used on input line 567.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-[7 <./Alexander_finalproject_files/figure-latex/unnamed-chunk-13-1.pdf>]
-<Alexander_finalproject_files/figure-latex/unnamed-chunk-15-1.pdf, id=148, 469.
-755pt x 325.215pt>
+k-14-1.pdf  used on input line 588.
+(pdftex.def)             Requested size: 469.75386pt x 289.07928pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 595--598
+
+ []
+
+[8 <./Alexander_finalproject_files/figure-latex/unnamed-chunk-13-1.pdf> <./Alex
+ander_finalproject_files/figure-latex/unnamed-chunk-14-1.pdf>]
+<Alexander_finalproject_files/figure-latex/unnamed-chunk-15-1.pdf, id=161, 469.
+755pt x 216.81pt>
 File: Alexander_finalproject_files/figure-latex/unnamed-chunk-15-1.pdf Graphic 
 file (type pdf)
 <use Alexander_finalproject_files/figure-latex/unnamed-chunk-15-1.pdf>
 Package pdftex.def Info: Alexander_finalproject_files/figure-latex/unnamed-chun
-k-15-1.pdf  used on input line 578.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+k-15-1.pdf  used on input line 599.
+(pdftex.def)             Requested size: 469.75386pt x 216.80946pt.
+[9 <./Alexander_finalproject_files/figure-latex/unnamed-chunk-15-1.pdf>]
 <C:/Users/zalexander/Desktop/data606_cunysps/data_606_cunysps/ProjectProposal/t
-rump_counties.png, id=149, 991.705pt x 592.2125pt>
+rump_counties.png, id=171, 991.705pt x 592.2125pt>
 File: C:/Users/zalexander/Desktop/data606_cunysps/data_606_cunysps/ProjectPropo
 sal/trump_counties.png Graphic file (type png)
 <use C:/Users/zalexander/Desktop/data606_cunysps/data_606_cunysps/ProjectPropos
 al/trump_counties.png>
 Package pdftex.def Info: C:/Users/zalexander/Desktop/data606_cunysps/data_606_c
-unysps/ProjectProposal/trump_counties.png  used on input line 582.
+unysps/ProjectProposal/trump_counties.png  used on input line 605.
 (pdftex.def)             Requested size: 469.74828pt x 280.51768pt.
-[8 <./Alexander_finalproject_files/figure-latex/unnamed-chunk-14-1.pdf>] [9 <./
-Alexander_finalproject_files/figure-latex/unnamed-chunk-15-1.pdf>]
-<Alexander_finalproject_files/figure-latex/unnamed-chunk-16-1.pdf, id=172, 469.
-755pt x 325.215pt>
-File: Alexander_finalproject_files/figure-latex/unnamed-chunk-16-1.pdf Graphic 
-file (type pdf)
-<use Alexander_finalproject_files/figure-latex/unnamed-chunk-16-1.pdf>
-Package pdftex.def Info: Alexander_finalproject_files/figure-latex/unnamed-chun
-k-16-1.pdf  used on input line 675.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<Alexander_finalproject_files/figure-latex/unnamed-chunk-16-2.pdf, id=173, 469.
-755pt x 325.215pt>
-File: Alexander_finalproject_files/figure-latex/unnamed-chunk-16-2.pdf Graphic 
-file (type pdf)
-<use Alexander_finalproject_files/figure-latex/unnamed-chunk-16-2.pdf>
-Package pdftex.def Info: Alexander_finalproject_files/figure-latex/unnamed-chun
-k-16-2.pdf  used on input line 676.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 675--677
-[][]
- []
-
 [10pdfTeX warning (ext4): destination with the same identifier (name{figure.1})
  has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.677 
+l.647 
        <c:/Users/zalexander/Desktop/data606_cunysps/data_606_cunysps/ProjectPro
-posal/trump_counties.png>] [11 <./Alexander_finalproject_files/figure-latex/unn
-amed-chunk-16-1.pdf>]
-<Alexander_finalproject_files/figure-latex/unnamed-chunk-17-1.pdf, id=189, 469.
-755pt x 325.215pt>
+posal/trump_counties.png>]
+<Alexander_finalproject_files/figure-latex/unnamed-chunk-16-1.pdf, id=180, 469.
+755pt x 144.54pt>
+File: Alexander_finalproject_files/figure-latex/unnamed-chunk-16-1.pdf Graphic 
+file (type pdf)
+<use Alexander_finalproject_files/figure-latex/unnamed-chunk-16-1.pdf>
+Package pdftex.def Info: Alexander_finalproject_files/figure-latex/unnamed-chun
+k-16-1.pdf  used on input line 700.
+(pdftex.def)             Requested size: 469.75386pt x 144.53963pt.
+<Alexander_finalproject_files/figure-latex/unnamed-chunk-16-2.pdf, id=181, 469.
+755pt x 144.54pt>
+File: Alexander_finalproject_files/figure-latex/unnamed-chunk-16-2.pdf Graphic 
+file (type pdf)
+<use Alexander_finalproject_files/figure-latex/unnamed-chunk-16-2.pdf>
+Package pdftex.def Info: Alexander_finalproject_files/figure-latex/unnamed-chun
+k-16-2.pdf  used on input line 701.
+(pdftex.def)             Requested size: 469.75386pt x 144.53963pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 700--702
+[][]
+ []
+
+<Alexander_finalproject_files/figure-latex/unnamed-chunk-17-1.pdf, id=182, 469.
+755pt x 216.81pt>
 File: Alexander_finalproject_files/figure-latex/unnamed-chunk-17-1.pdf Graphic 
 file (type pdf)
 <use Alexander_finalproject_files/figure-latex/unnamed-chunk-17-1.pdf>
 Package pdftex.def Info: Alexander_finalproject_files/figure-latex/unnamed-chun
-k-17-1.pdf  used on input line 678.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-[12 <./Alexander_finalproject_files/figure-latex/unnamed-chunk-16-2.pdf>]
+k-17-1.pdf  used on input line 703.
+(pdftex.def)             Requested size: 469.75386pt x 216.80946pt.
+[11 <./Alexander_finalproject_files/figure-latex/unnamed-chunk-16-1.pdf> <./Ale
+xander_finalproject_files/figure-latex/unnamed-chunk-16-2.pdf>]
 
-Package xcolor Warning: Incompatible color definition on input line 718.
-
-[13 <./Alexander_finalproject_files/figure-latex/unnamed-chunk-17-1.pdf>]
-
-Package xcolor Warning: Incompatible color definition on input line 722.
+Package xcolor Warning: Incompatible color definition on input line 743.
 
 
-Package xcolor Warning: Incompatible color definition on input line 722.
+Package xcolor Warning: Incompatible color definition on input line 747.
 
 
-Overfull \hbox (23.74355pt too wide) in paragraph at lines 735--735
+Package xcolor Warning: Incompatible color definition on input line 747.
+
+
+Overfull \hbox (23.74355pt too wide) in paragraph at lines 760--760
 []\T1/lmtt/m/n/10 ## Fit: aov(formula = per_gop ~ ruralurban_grp_3_way, data = 
 election_education_df_rmoutliers)[] 
  []
 
-<Alexander_finalproject_files/figure-latex/unnamed-chunk-20-1.pdf, id=209, 469.
-755pt x 325.215pt>
+[12 <./Alexander_finalproject_files/figure-latex/unnamed-chunk-17-1.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 762--766
+
+ []
+
+<Alexander_finalproject_files/figure-latex/unnamed-chunk-20-1.pdf, id=206, 469.
+755pt x 289.08pt>
 File: Alexander_finalproject_files/figure-latex/unnamed-chunk-20-1.pdf Graphic 
 file (type pdf)
 <use Alexander_finalproject_files/figure-latex/unnamed-chunk-20-1.pdf>
 Package pdftex.def Info: Alexander_finalproject_files/figure-latex/unnamed-chun
-k-20-1.pdf  used on input line 752.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-[14 <./Alexander_finalproject_files/figure-latex/unnamed-chunk-20-1.pdf>]
-<Alexander_finalproject_files/figure-latex/unnamed-chunk-21-1.pdf, id=222, 722.
-7pt x 722.7pt>
+k-20-1.pdf  used on input line 777.
+(pdftex.def)             Requested size: 469.75386pt x 289.07928pt.
+[13 <./Alexander_finalproject_files/figure-latex/unnamed-chunk-20-1.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 801--808
+
+ []
+
+<Alexander_finalproject_files/figure-latex/unnamed-chunk-21-1.pdf, id=220, 722.
+7pt x 505.89pt>
 File: Alexander_finalproject_files/figure-latex/unnamed-chunk-21-1.pdf Graphic 
 file (type pdf)
 <use Alexander_finalproject_files/figure-latex/unnamed-chunk-21-1.pdf>
 Package pdftex.def Info: Alexander_finalproject_files/figure-latex/unnamed-chun
-k-21-1.pdf  used on input line 803.
-(pdftex.def)             Requested size: 469.76045pt x 469.76045pt.
-[15]
-<Alexander_finalproject_files/figure-latex/unnamed-chunk-22-1.pdf, id=231, 469.
-755pt x 325.215pt>
+k-21-1.pdf  used on input line 828.
+(pdftex.def)             Requested size: 469.76045pt x 328.8323pt.
+<Alexander_finalproject_files/figure-latex/unnamed-chunk-22-1.pdf, id=221, 469.
+755pt x 216.81pt>
 File: Alexander_finalproject_files/figure-latex/unnamed-chunk-22-1.pdf Graphic 
 file (type pdf)
 <use Alexander_finalproject_files/figure-latex/unnamed-chunk-22-1.pdf>
 Package pdftex.def Info: Alexander_finalproject_files/figure-latex/unnamed-chun
-k-22-1.pdf  used on input line 805.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+k-22-1.pdf  used on input line 830.
+(pdftex.def)             Requested size: 469.75386pt x 216.80946pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 805--813
+Underfull \hbox (badness 10000) in paragraph at lines 830--838
 [][]
  []
 
-[16 <./Alexander_finalproject_files/figure-latex/unnamed-chunk-21-1.pdf>] [17 <
-./Alexander_finalproject_files/figure-latex/unnamed-chunk-22-1.pdf>]
+[14 <./Alexander_finalproject_files/figure-latex/unnamed-chunk-21-1.pdf>]
 
-Package xcolor Warning: Incompatible color definition on input line 853.
-
-
-Package xcolor Warning: Incompatible color definition on input line 859.
+Package xcolor Warning: Incompatible color definition on input line 879.
 
 
-Package xcolor Warning: Incompatible color definition on input line 859.
+Package xcolor Warning: Incompatible color definition on input line 885.
 
 
-Package xcolor Warning: Incompatible color definition on input line 886.
+Package xcolor Warning: Incompatible color definition on input line 885.
+
+[15 <./Alexander_finalproject_files/figure-latex/unnamed-chunk-22-1.pdf>]
+
+Package xcolor Warning: Incompatible color definition on input line 912.
 
 
-Package xcolor Warning: Incompatible color definition on input line 893.
+Package xcolor Warning: Incompatible color definition on input line 919.
 
 
-Package xcolor Warning: Incompatible color definition on input line 893.
+Package xcolor Warning: Incompatible color definition on input line 919.
 
-[18]
+[16]
+Underfull \hbox (badness 10000) in paragraph at lines 951--955
 
-Package xcolor Warning: Incompatible color definition on input line 932.
-
-
-Package xcolor Warning: Incompatible color definition on input line 936.
+ []
 
 
-Package xcolor Warning: Incompatible color definition on input line 936.
+Underfull \hbox (badness 10000) in paragraph at lines 956--957
 
+ []
 
-Package xcolor Warning: Incompatible color definition on input line 943.
-
-
-Package xcolor Warning: Incompatible color definition on input line 950.
-
-
-Package xcolor Warning: Incompatible color definition on input line 950.
-
-<Alexander_finalproject_files/figure-latex/unnamed-chunk-26-1.pdf, id=255, 469.
-755pt x 325.215pt>
+<Alexander_finalproject_files/figure-latex/unnamed-chunk-26-1.pdf, id=249, 469.
+755pt x 216.81pt>
 File: Alexander_finalproject_files/figure-latex/unnamed-chunk-26-1.pdf Graphic 
 file (type pdf)
 <use Alexander_finalproject_files/figure-latex/unnamed-chunk-26-1.pdf>
 Package pdftex.def Info: Alexander_finalproject_files/figure-latex/unnamed-chun
-k-26-1.pdf  used on input line 952.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+k-26-1.pdf  used on input line 967.
+(pdftex.def)             Requested size: 469.75386pt x 216.80946pt.
 
-Package xcolor Warning: Incompatible color definition on input line 954.
+Underfull \hbox (badness 10000) in paragraph at lines 969--973
 
-[19 <./Alexander_finalproject_files/figure-latex/unnamed-chunk-26-1.pdf>]
+ []
 
-Package xcolor Warning: Incompatible color definition on input line 958.
-
-
-Package xcolor Warning: Incompatible color definition on input line 958.
-
-<Alexander_finalproject_files/figure-latex/unnamed-chunk-27-1.pdf, id=266, 469.
-755pt x 325.215pt>
+<Alexander_finalproject_files/figure-latex/unnamed-chunk-27-1.pdf, id=250, 469.
+755pt x 289.08pt>
 File: Alexander_finalproject_files/figure-latex/unnamed-chunk-27-1.pdf Graphic 
 file (type pdf)
 <use Alexander_finalproject_files/figure-latex/unnamed-chunk-27-1.pdf>
 Package pdftex.def Info: Alexander_finalproject_files/figure-latex/unnamed-chun
-k-27-1.pdf  used on input line 960.
+k-27-1.pdf  used on input line 985.
+(pdftex.def)             Requested size: 469.75386pt x 289.07928pt.
+[17 <./Alexander_finalproject_files/figure-latex/unnamed-chunk-26-1.pdf>]
+
+Package xcolor Warning: Incompatible color definition on input line 993.
+
+
+Package xcolor Warning: Incompatible color definition on input line 998.
+
+
+Package xcolor Warning: Incompatible color definition on input line 998.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1006--1010
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1016--1023
+
+ []
+
+[18 <./Alexander_finalproject_files/figure-latex/unnamed-chunk-27-1.pdf>]
+
+Package xcolor Warning: Incompatible color definition on input line 1047.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1052.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1052.
+
+<Alexander_finalproject_files/figure-latex/unnamed-chunk-29-1.pdf, id=269, 469.
+755pt x 325.215pt>
+File: Alexander_finalproject_files/figure-latex/unnamed-chunk-29-1.pdf Graphic 
+file (type pdf)
+<use Alexander_finalproject_files/figure-latex/unnamed-chunk-29-1.pdf>
+Package pdftex.def Info: Alexander_finalproject_files/figure-latex/unnamed-chun
+k-29-1.pdf  used on input line 1054.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
-Package xcolor Warning: Incompatible color definition on input line 962.
+Underfull \hbox (badness 10000) in paragraph at lines 1056--1061
 
+ []
 
-Package xcolor Warning: Incompatible color definition on input line 967.
-
-
-Package xcolor Warning: Incompatible color definition on input line 967.
-
-
-Package xcolor Warning: Incompatible color definition on input line 977.
-
-
-Package xcolor Warning: Incompatible color definition on input line 983.
-
-
-Package xcolor Warning: Incompatible color definition on input line 983.
-
-[20 <./Alexander_finalproject_files/figure-latex/unnamed-chunk-27-1.pdf>]
-
-Package xcolor Warning: Incompatible color definition on input line 1000.
-
-
-Package xcolor Warning: Incompatible color definition on input line 1004.
-
-
-Package xcolor Warning: Incompatible color definition on input line 1004.
-
-
-Package xcolor Warning: Incompatible color definition on input line 1017.
-
-
-Package xcolor Warning: Incompatible color definition on input line 1022.
-
-
-Package xcolor Warning: Incompatible color definition on input line 1022.
-
-<Alexander_finalproject_files/figure-latex/unnamed-chunk-30-1.pdf, id=276, 469.
-755pt x 325.215pt>
+<Alexander_finalproject_files/figure-latex/unnamed-chunk-30-1.pdf, id=270, 469.
+755pt x 216.81pt>
 File: Alexander_finalproject_files/figure-latex/unnamed-chunk-30-1.pdf Graphic 
 file (type pdf)
 <use Alexander_finalproject_files/figure-latex/unnamed-chunk-30-1.pdf>
 Package pdftex.def Info: Alexander_finalproject_files/figure-latex/unnamed-chun
-k-30-1.pdf  used on input line 1024.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-
-Package xcolor Warning: Incompatible color definition on input line 1026.
-
-
-Package xcolor Warning: Incompatible color definition on input line 1033.
-
-
-Package xcolor Warning: Incompatible color definition on input line 1033.
-
-[21 <./Alexander_finalproject_files/figure-latex/unnamed-chunk-30-1.pdf>]
-
-Package xcolor Warning: Incompatible color definition on input line 1065.
-
-
-Package xcolor Warning: Incompatible color definition on input line 1069.
-
-
-Package xcolor Warning: Incompatible color definition on input line 1069.
-
-<Alexander_finalproject_files/figure-latex/unnamed-chunk-30-2.pdf, id=287, 469.
-755pt x 325.215pt>
+k-30-1.pdf  used on input line 1076.
+(pdftex.def)             Requested size: 469.75386pt x 216.80946pt.
+<Alexander_finalproject_files/figure-latex/unnamed-chunk-30-2.pdf, id=271, 469.
+755pt x 216.81pt>
 File: Alexander_finalproject_files/figure-latex/unnamed-chunk-30-2.pdf Graphic 
 file (type pdf)
 <use Alexander_finalproject_files/figure-latex/unnamed-chunk-30-2.pdf>
 Package pdftex.def Info: Alexander_finalproject_files/figure-latex/unnamed-chun
-k-30-2.pdf  used on input line 1071.
+k-30-2.pdf  used on input line 1077.
+(pdftex.def)             Requested size: 469.75386pt x 216.80946pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 1076--1078
+[][]
+ []
+
+[19 <./Alexander_finalproject_files/figure-latex/unnamed-chunk-29-1.pdf>] [20 <
+./Alexander_finalproject_files/figure-latex/unnamed-chunk-30-1.pdf> <./Alexande
+r_finalproject_files/figure-latex/unnamed-chunk-30-2.pdf>]
+<Alexander_finalproject_files/figure-latex/unnamed-chunk-33-1.pdf, id=296, 469.
+755pt x 325.215pt>
+File: Alexander_finalproject_files/figure-latex/unnamed-chunk-33-1.pdf Graphic 
+file (type pdf)
+<use Alexander_finalproject_files/figure-latex/unnamed-chunk-33-1.pdf>
+Package pdftex.def Info: Alexander_finalproject_files/figure-latex/unnamed-chun
+k-33-1.pdf  used on input line 1127.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-[22 <./Alexander_finalproject_files/figure-latex/unnamed-chunk-30-2.pdf>]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1079.
+[21 <./Alexander_finalproject_files/figure-latex/unnamed-chunk-33-1.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 1136--1137
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1215--1223
+
+ []
+
+[22]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1265.
 [23]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1079.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1265.
 (./Alexander_finalproject.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1079.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1079.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1265.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1265.
 
 Package rerunfilecheck Info: File `Alexander_finalproject.out' has not changed.
 
-(rerunfilecheck)             Checksum: FFFB399026C5C50C150AC9A9E61E9594;3571.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1079.
+(rerunfilecheck)             Checksum: B999AFBB30837FF600FAA26C82C20378;3667.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1265.
  ) 
 Here is how much of TeX's memory you used:
- 12726 strings out of 494553
- 187248 string characters out of 6175637
- 287448 words of memory out of 5000000
- 16140 multiletter control sequences out of 15000+600000
+ 12877 strings out of 494553
+ 189942 string characters out of 6175637
+ 291916 words of memory out of 5000000
+ 16287 multiletter control sequences out of 15000+600000
  42219 words of font info for 45 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  28i,10n,35p,752b,449s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1304,10 +1306,10 @@ TeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb><c:/Users/zalexander/AppData/Ro
 aming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtk10.pfb><c:/Users/zalexander/
 AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb><c:/Users/z
 alexander/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtti10.pfb>
-Output written on Alexander_finalproject.pdf (23 pages, 1925221 bytes).
+Output written on Alexander_finalproject.pdf (23 pages, 2626549 bytes).
 PDF statistics:
- 363 PDF objects out of 1000 (max. 8388607)
- 290 compressed objects within 3 object streams
- 43 named destinations out of 1000 (max. 500000)
- 225 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 381 PDF objects out of 1000 (max. 8388607)
+ 303 compressed objects within 4 object streams
+ 44 named destinations out of 1000 (max. 500000)
+ 243 words of extra memory for PDF output out of 10000 (max. 10000000)
 
